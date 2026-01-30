@@ -1,0 +1,2414 @@
+[
+  {
+    "id": 1,
+    "name": "Rimuru Tempest",
+    "rarity": "Legendary",
+    "price": 500,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/3/3a/Rimuru_Anime.png"
+  },
+  {
+    "id": 2,
+    "name": "Benimaru",
+    "rarity": "Epic",
+    "price": 350,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/4/4a/Benimaru_Anime.png"
+  },
+  {
+    "id": 3,
+    "name": "Shion",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/5/5a/Shion_Anime.png"
+  },
+  {
+    "id": 4,
+    "name": "Souei",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/6/6a/Souei_Anime.png"
+  },
+  {
+    "id": 5,
+    "name": "Hakuro",
+    "rarity": "Rare",
+    "price": 250,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/7/7a/Hakuro_Anime.png"
+  },
+  {
+    "id": 6,
+    "name": "Ranga",
+    "rarity": "Epic",
+    "price": 320,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/8/8a/Ranga_Anime.png"
+  },
+  {
+    "id": 7,
+    "name": "Gobta",
+    "rarity": "Common",
+    "price": 100,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/9/9a/Gobta_Anime.png"
+  },
+  {
+    "id": 8,
+    "name": "Treyni",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/1/1a/Treyni_Anime.png"
+  },
+  {
+    "id": 9,
+    "name": "Kurobe",
+    "rarity": "Rare",
+    "price": 260,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/2/2a/Kurobe_Anime.png"
+  },
+  {
+    "id": 10,
+    "name": "Kaijin",
+    "rarity": "Common",
+    "price": 150,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/3/3a/Kaijin_Anime.png"
+  },
+  {
+    "id": 11,
+    "name": "Garm",
+    "rarity": "Common",
+    "price": 150,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/4/4a/Garm_Anime.png"
+  },
+  {
+    "id": 12,
+    "name": "Dord",
+    "rarity": "Common",
+    "price": 150,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/5/5a/Dord_Anime.png"
+  },
+  {
+    "id": 13,
+    "name": "Myuran",
+    "rarity": "Epic",
+    "price": 350,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/6/6a/Myuran_Anime.png"
+  },
+  {
+    "id": 14,
+    "name": "Eren",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/7/7a/Eren_Anime.png"
+  },
+  {
+    "id": 15,
+    "name": "Kurobe’s Apprentice",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/8/8a/Blacksmith_Anime.png"
+  },
+  {
+    "id": 16,
+    "name": "Eren",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/7/7a/Eren_Anime.png"
+  },
+  {
+    "id": 17,
+    "name": "Rigurd",
+    "rarity": "Rare",
+    "price": 260,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/8/8a/Rigurd_Anime.png"
+  },
+  {
+    "id": 18,
+    "name": "Rigur",
+    "rarity": "Common",
+    "price": 150,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/9/9a/Rigur_Anime.png"
+  },
+  {
+    "id": 19,
+    "name": "Gobchi",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/1/1a/Gobchi_Anime.png"
+  },
+  {
+    "id": 20,
+    "name": "Gobte",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/2/2a/Gobte_Anime.png"
+  },
+  {
+    "id": 21,
+    "name": "Gobmi",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/3/3a/Gobmi_Anime.png"
+  },
+  {
+    "id": 22,
+    "name": "Gobso",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/4/4a/Gobso_Anime.png"
+  },
+  {
+    "id": 23,
+    "name": "Gobna",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/5/5a/Gobna_Anime.png"
+  },
+  {
+    "id": 24,
+    "name": "Gobro",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/6/6a/Gobro_Anime.png"
+  },
+  {
+    "id": 25,
+    "name": "Gobzu",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/7/7a/Gobzu_Anime.png"
+  },
+  {
+    "id": 26,
+    "name": "Gobse",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/8/8a/Gobse_Anime.png"
+  },
+  {
+    "id": 27,
+    "name": "Gobri",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/9/9a/Gobri_Anime.png"
+  },
+  {
+    "id": 28,
+    "name": "Gobda",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/1/1a/Gobda_Anime.png"
+  },
+  {
+    "id": 29,
+    "name": "Gobmu",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/2/2a/Gobmu_Anime.png"
+  },
+  {
+    "id": 30,
+    "name": "Gobne",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/3/3a/Gobne_Anime.png"
+  },
+  {
+    "id": 31,
+    "name": "Gobne",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/3/3a/Gobne_Anime.png"
+  },
+  {
+    "id": 32,
+    "name": "Gobmu",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/2/2a/Gobmu_Anime.png"
+  },
+  {
+    "id": 33,
+    "name": "Gobse",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/8/8a/Gobse_Anime.png"
+  },
+  {
+    "id": 34,
+    "name": "Gobri",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/9/9a/Gobri_Anime.png"
+  },
+  {
+    "id": 35,
+    "name": "Gobda",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/1/1a/Gobda_Anime.png"
+  },
+  {
+    "id": 36,
+    "name": "Gobro",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/6/6a/Gobro_Anime.png"
+  },
+  {
+    "id": 37,
+    "name": "Gobna",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/5/5a/Gobna_Anime.png"
+  },
+  {
+    "id": 38,
+    "name": "Gobzu",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/7/7a/Gobzu_Anime.png"
+  },
+  {
+    "id": 39,
+    "name": "Gobmi",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/3/3a/Gobmi_Anime.png"
+  },
+  {
+    "id": 40,
+    "name": "Gobso",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/4/4a/Gobso_Anime.png"
+  },
+  {
+    "id": 41,
+    "name": "Gobte",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/2/2a/Gobte_Anime.png"
+  },
+  {
+    "id": 42,
+    "name": "Gobchi",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/1/1a/Gobchi_Anime.png"
+  },
+  {
+    "id": 43,
+    "name": "Gobshi",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/1/1a/Gobshi_Anime.png"
+  },
+  {
+    "id": 44,
+    "name": "Gobrius",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/9/9a/Gobrius_Anime.png"
+  },
+  {
+    "id": 45,
+    "name": "Gobniel",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/3/3a/Gobniel_Anime.png"
+  },
+  {
+    "id": 46,
+    "name": "Gobtan",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/2/2a/Gobtan_Anime.png"
+  },
+  {
+    "id": 47,
+    "name": "Gobren",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/4/4a/Gobren_Anime.png"
+  },
+  {
+    "id": 48,
+    "name": "Gobshi",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/5/5a/Gobshi_Anime.png"
+  },
+  {
+    "id": 49,
+    "name": "Gobral",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/6/6a/Gobral_Anime.png"
+  },
+  {
+    "id": 50,
+    "name": "Gobzen",
+    "rarity": "Common",
+    "price": 120,
+    "faction": "Tempest",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/7/7a/Gobzen_Anime.png"
+  },
+  {
+    "id": 51,
+    "name": "Milim Nava",
+    "rarity": "Legendary",
+    "price": 600,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/2/2d/Milim_Anime.png"
+  },
+  {
+    "id": 52,
+    "name": "Diablo",
+    "rarity": "Legendary",
+    "price": 550,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/9/9a/Diablo_Anime.png"
+  },
+  {
+    "id": 53,
+    "name": "Leon Cromwell",
+    "rarity": "Legendary",
+    "price": 650,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/8/8f/Leon_Anime.png"
+  },
+  {
+    "id": 54,
+    "name": "Guy Crimson",
+    "rarity": "Legendary",
+    "price": 700,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/1/1a/Guy_Crimson.png"
+  },
+  {
+    "id": 55,
+    "name": "Ramiris",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/2/2a/Ramiris_Anime.png"
+  },
+  {
+   "id": 56,
+    "name": "Dagruel",
+    "rarity": "Legendary",
+    "price": 650,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/3/3a/Dagruel_Anime.png"
+  },
+  {
+    "id": 57,
+    "name": "Luminous Valentine",
+    "rarity": "Legendary",
+    "price": 700,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/4/4a/Luminous_Valentine.png"
+  },
+  {
+    "id": 58,
+    "name": "Roy Valentine",
+    "rarity": "Epic",
+    "price": 380,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/5/5a/Roy_Valentine.png"
+  },
+  {
+    "id": 59,
+    "name": "Kazaream",
+    "rarity": "Epic",
+    "price": 370,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/6/6a/Kazaream.png"
+  },
+  {
+    "id": 60,
+    "name": "Carrion",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/7/7a/Carrion.png"
+  },
+  {
+    "id": 61,
+    "name": "Frey",
+    "rarity": "Epic",
+    "price": 380,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/8/8a/Frey.png"
+  },
+  {
+    "id": 62,
+    "name": "Orcus",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/9/9a/Orcus.png"
+  },
+  {
+    "id": 63,
+    "name": "Clayman",
+    "rarity": "Epic",
+    "price": 350,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/1/1a/Clayman.png"
+  },
+  {
+    "id": 64,
+    "name": "Adalman",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/2/2a/Adalman.png"
+  },
+  {
+    "id": 65,
+    "name": "Ultima",
+    "rarity": "Legendary",
+    "price": 650,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/3/3a/Ultima.png"
+  },
+  {
+    "id": 66,
+    "name": "Testarossa",
+    "rarity": "Legendary",
+    "price": 650,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/4/4a/Testarossa.png"
+  },
+  {
+    "id": 67,
+    "name": "Carrera",
+    "rarity": "Legendary",
+    "price": 650,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/5/5a/Carrera.png"
+  },
+  {
+    "id": 68,
+    "name": "Zegion",
+    "rarity": "Legendary",
+    "price": 700,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/6/6a/Zegion.png"
+  },
+  {
+    "id": 69,
+    "name": "Apito",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/7/7a/Apito.png"
+  },
+  {
+    "id": 70,
+    "name": "Kumara",
+    "rarity": "Epic",
+    "price": 350,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/8/8a/Kumara.png"
+  },
+  {
+    "id": 71,
+    "name": "Mephisto",
+    "rarity": "Legendary",
+    "price": 700,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/9/9a/Mephisto.png"
+  },
+  {
+    "id": 72,
+    "name": "Valentine",
+    "rarity": "Epic",
+    "price": 380,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/1/1a/Valentine.png"
+  },
+  {
+    "id": 73,
+    "name": "Dagura",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/2/2a/Dagura.png"
+  },
+  {
+    "id": 74,
+    "name": "Lucia",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/3/3a/Lucia.png"
+  },
+  {
+    "id": 75,
+    "name": "Velgrynd (ally Demon Lord)",
+    "rarity": "Legendary",
+    "price": 750,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/4/4a/Velgrynd.png"
+  },
+  {
+    "id": 76,
+    "name": "Velzard (ally Demon Lord)",
+    "rarity": "Legendary",
+    "price": 750,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/5/5a/Velzard.png"
+  },
+  {
+    "id": 77,
+    "name": "Velgaia",
+    "rarity": "Legendary",
+    "price": 750,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/6/6a/Velgaia.png"
+  },
+  {
+    "id": 78,
+    "name": "Velda",
+    "rarity": "Legendary",
+    "price": 800,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/7/7a/Velda.png"
+  },
+  {
+    "id": 79,
+    "name": "Lucifer",
+    "rarity": "Legendary",
+    "price": 800,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/8/8a/Lucifer.png"
+  },
+  {
+    "id": 80,
+    "name": "Beelzebub",
+    "rarity": "Legendary",
+    "price": 800,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/9/9a/Beelzebub.png"
+  },
+  {
+    "id": 81,
+    "name": "Mammon",
+    "rarity": "Legendary",
+    "price": 800,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/1/1a/Mammon.png"
+  },
+  {
+    "id": 82,
+    "name": "Belphegor",
+    "rarity": "Legendary",
+    "price": 800,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/2/2a/Belphegor.png"
+  },
+  {
+    "id": 83,
+    "name": "Asmodeus",
+    "rarity": "Legendary",
+    "price": 800,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/3/3a/Asmodeus.png"
+  },
+  {
+    "id": 84,
+    "name": "Satan",
+    "rarity": "Legendary",
+    "price": 800,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/4/4a/Satan.png"
+  },
+  {
+    "id": 85,
+    "name": "Lucian",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/5/5a/Lucian.png"
+  },
+  {
+    "id": 86,
+    "name": "Belial",
+    "rarity": "Legendary",
+    "price": 800,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/6/6a/Belial.png"
+  },
+  {
+    "id": 87,
+    "name": "Astaroth",
+    "rarity": "Legendary",
+    "price": 800,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/7/7a/Astaroth.png"
+  },
+  {
+    "id": 88,
+    "name": "Lilith",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/l/lc/Lilith.png"
+  },
+  {
+    "id": 89,
+    "name": "Belzebuth",
+    "rarity": "Legendary",
+    "price": 800,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/b/bz/Belzebuth.png"
+  },
+  {
+    "id": 90,
+    "name": "Lucifina",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/l/lf/Lucifina.png"
+  },
+  {
+    "id": 91,
+    "name": "Amon",
+    "rarity": "Legendary",
+    "price": 750,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/a/am/Amon.png"
+  },
+  {
+    "id": 92,
+    "name": "Barbatos",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/b/bt/Barbatos.png"
+  },
+  {
+    "id": 93,
+    "name": "Marchosias",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/m/ms/Marchosias.png"
+  },
+  {
+    "id": 94,
+    "name": "Phenex",
+    "rarity": "Epic",
+    "price": 380,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/p/px/Phenex.png"
+  },
+  {
+    "id": 95,
+    "name": "Valefor",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/v/vf/Valefor.png"
+  },
+  {
+    "id": 96,
+    "name": "Forneus",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/f/fs/Forneus.png"
+  },
+  {
+    "id": 97,
+    "name": "Glasya-Labolas",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/g/gl/Glasya.png"
+  },
+  {
+    "id": 98,
+    "name": "Baal",
+    "rarity": "Legendary",
+    "price": 800,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/b/bl/Baal.png"
+  },
+  {
+    "id": 99,
+    "name": "Paimon",
+    "rarity": "Legendary",
+    "price": 800,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/p/pm/Paimon.png"
+  },
+  {
+    "id": 100,
+    "name": "Stolas",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Demon Lords",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sl/Stolas.png"
+  },
+  {
+    "id": 101,
+    "name": "Gazelle Dwargo",
+    "rarity": "Epic",
+    "price": 350,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/g/gd/Gazelle.png"
+  },
+  {
+    "id": 102,
+    "name": "Youm",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/y/ym/Youm.png"
+  },
+  {
+    "id": 103,
+    "name": "Hinata Sakaguchi",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/h/hs/Hinata.png"
+  },
+  {
+    "id": 104,
+    "name": "Yuuki Kagurazaka",
+    "rarity": "Epic",
+    "price": 380,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/y/yk/Yuuki.png"
+  },
+  {
+    "id": 105,
+    "name": "Erald",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/e/el/Erald.png"
+  },
+  {
+    "id": 106,
+    "name": "King Edmaris",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/k/ke/Edmaris.png"
+  },
+  {
+    "id": 107,
+    "name": "Archduke Doran",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dr/Doran.png"
+  },
+  {
+    "id": 108,
+    "name": "Mikami",
+    "rarity": "Common",
+    "price": 150,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/m/mk/Mikami.png"
+  },
+  {
+    "id": 109,
+    "name": "Kuroda",
+    "rarity": "Common",
+    "price": 150,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/k/kr/Kuroda.png"
+  },
+  {
+    "id": 110,
+    "name": "Shougo Taguchi",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/st/Shougo.png"
+  },
+  {
+    "id": 111,
+    "name": "Kyoya Tachibana",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/k/kt/Kyoya.png"
+  },
+  {
+    "id": 112,
+    "name": "Kirara Mizutani",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/k/km/Kirara.png"
+  },
+  {
+    "id": 113,
+    "name": "Masayuki",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/m/ms/Masayuki.png"
+  },
+  {
+    "id": 114,
+    "name": "Arnaud",
+    "rarity": "Epic",
+    "price": 380,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/a/an/Arnaud.png"
+  },
+  {
+    "id": 115,
+    "name": "Bacchus",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/b/bc/Bacchus.png"
+  },
+  {
+    "id": 116,
+    "name": "Ritus",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/r/rt/Ritus.png"
+  },
+  {
+    "id": 117,
+    "name": "Glenda",
+    "rarity": "Epic",
+    "price": 380,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/g/gl/Glenda.png"
+  },
+  {
+    "id": 118,
+    "name": "Grigori",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/g/gr/Grigori.png"
+  },
+  {
+    "id": 119,
+    "name": "Velga",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/v/vg/Velga.png"
+  },
+  {
+    "id": 120,
+    "name": "Dante",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dt/Dante.png"
+  },
+  {
+    "id": 121,
+    "name": "Albert",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/a/ab/Albert.png"
+  },
+  {
+    "id": 122,
+    "name": "Boris",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/b/br/Boris.png"
+  },
+  {
+    "id": 123,
+    "name": "Lukas",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/l/lk/Lukas.png"
+  },
+  {
+    "id": 124,
+    "name": "Marius",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/m/mr/Marius.png"
+  },
+  {
+    "id": 125,
+    "name": "Sophia",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sp/Sophia.png"
+  },
+  {
+    "id": 126,
+    "name": "Victor",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/v/vc/Victor.png"
+  },
+  {
+    "id": 127,
+    "name": "Helena",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/h/hl/Helena.png"
+  },
+  {
+    "id": 128,
+    "name": "Damien",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dm/Damien.png"
+  },
+  {
+    "id": 129,
+    "name": "Claudia",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/c/cl/Claudia.png"
+  },
+  {
+    "id": 130,
+    "name": "Roland",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/r/rl/Roland.png"
+  },
+  {
+    "id": 131,
+    "name": "Isabella",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/i/ib/Isabella.png"
+  },
+  {
+    "id": 132,
+    "name": "Marcus",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/m/mc/Marcus.png"
+  },
+  {
+    "id": 133,
+    "name": "Elena",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/e/el/Elena.png"
+  },
+  {
+    "id": 134,
+    "name": "Sebastian",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sb/Sebastian.png"
+  },
+  {
+    "id": 135,
+    "name": "Cecilia",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/c/cc/Cecilia.png"
+  },
+  {
+    "id": 136,
+    "name": "Adrian",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/a/ad/Adrian.png"
+  },
+  {
+    "id": 137,
+    "name": "Beatrice",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/b/bt/Beatrice.png"
+  },
+  {
+    "id": 138,
+    "name": "Oliver",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/o/ol/Oliver.png"
+  },
+  {
+    "id": 139,
+    "name": "Natalia",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/n/nt/Natalia.png"
+  },
+  {
+    "id": 140,
+    "name": "Hector",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/h/hc/Hector.png"
+  },
+  {
+    "id": 141,
+    "name": "Camilla",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/c/cm/Camilla.png"
+  },
+  {
+    "id": 142,
+    "name": "Darius",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dr/Darius.png"
+  },
+  {
+    "id": 143,
+    "name": "Selene",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sl/Selene.png"
+  },
+  {
+    "id": 144,
+    "name": "Damian",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dm/Damian.png"
+  },
+  {
+    "id": 145,
+    "name": "Lucia",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/l/lc/Lucia.png"
+  },
+  {
+    "id": 146,
+    "name": "Raphael",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/r/rp/Raphael.png"
+  },
+  {
+    "id": 147,
+    "name": "Sophina",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sp/Sophina.png"
+  },
+  {
+    "id": 148,
+    "name": "Leonard",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/l/ld/Leonard.png"
+  },
+  {
+    "id": 149,
+    "name": "Miranda",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/m/mr/Miranda.png"
+  },
+  {
+    "id": 150,
+    "name": "Oscar",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Humans",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/o/os/Oscar.png"
+  },
+  {
+    "id": 151,
+    "name": "Luminous Valentine",
+    "rarity": "Legendary",
+    "price": 700,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/l/lv/Luminous.png"
+  },
+  {
+    "id": 152,
+    "name": "Hinata Sakaguchi",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/h/hs/Hinata.png"
+  },
+  {
+    "id": 153,
+    "name": "Arnaud",
+    "rarity": "Epic",
+    "price": 380,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/a/an/Arnaud.png"
+  },
+  {
+    "id": 154,
+    "name": "Bacchus",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/b/bc/Bacchus.png"
+  },
+  {
+    "id": 155,
+    "name": "Ritus",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/r/rt/Ritus.png"
+  },
+  {
+    "id": 156,
+    "name": "Glenda",
+    "rarity": "Epic",
+    "price": 380,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/g/gl/Glenda.png"
+  },
+  {
+    "id": 157,
+    "name": "Grigori",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/g/gr/Grigori.png"
+  },
+  {
+    "id": 158,
+    "name": "Velga",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/v/vg/Velga.png"
+  },
+  {
+    "id": 159,
+    "name": "Dante",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dt/Dante.png"
+  },
+  {
+    "id": 160,
+    "name": "Albert",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/a/ab/Albert.png"
+  },
+  {
+    "id": 161,
+    "name": "Boris",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/b/br/Boris.png"
+  },
+  {
+    "id": 162,
+    "name": "Lukas",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/l/lk/Lukas.png"
+  },
+  {
+    "id": 163,
+    "name": "Marius",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/m/mr/Marius.png"
+  },
+  {
+    "id": 164,
+    "name": "Sophia",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sp/Sophia.png"
+  },
+  {
+    "id": 165,
+    "name": "Victor",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/v/vc/Victor.png"
+  },
+  {
+    "id": 166,
+    "name": "Helena",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/h/hl/Helena.png"
+  },
+  {
+    "id": 167,
+    "name": "Damien",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dm/Damien.png"
+  },
+  {
+    "id": 168,
+    "name": "Claudia",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/c/cl/Claudia.png"
+  },
+  {
+    "id": 169,
+    "name": "Roland",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/r/rl/Roland.png"
+  },
+  {
+    "id": 170,
+    "name": "Isabella",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/i/ib/Isabella.png"
+  },
+  {
+    "id": 171,
+    "name": "Marcus",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/m/mc/Marcus.png"
+  },
+  {
+    "id": 172,
+    "name": "Elena",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/e/el/Elena.png"
+  },
+  {
+    "id": 173,
+    "name": "Sebastian",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sb/Sebastian.png"
+  },
+  {
+    "id": 174,
+    "name": "Cecilia",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/c/cc/Cecilia.png"
+  },
+  {
+    "id": 175,
+    "name": "Adrian",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/a/ad/Adrian.png"
+  },
+  {
+    "id": 176,
+    "name": "Beatrice",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/b/bt/Beatrice.png"
+  },
+  {
+    "id": 177,
+    "name": "Oliver",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/o/ol/Oliver.png"
+  },
+  {
+    "id": 178,
+    "name": "Natalia",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/n/nt/Natalia.png"
+  },
+  {
+    "id": 179,
+    "name": "Hector",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/h/hc/Hector.png"
+  },
+  {
+    "id": 180,
+    "name": "Camilla",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/c/cm/Camilla.png"
+  },
+  {
+    "id": 181,
+    "name": "Darius",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dr/Darius.png"
+  },
+  {
+    "id": 182,
+    "name": "Selene",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sl/Selene.png"
+  },
+  {
+    "id": 183,
+    "name": "Damian",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dm/Damian.png"
+  },
+  {
+    "id": 184,
+    "name": "Lucia",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/l/lc/Lucia.png"
+  },
+  {
+    "id": 185,
+    "name": "Raphael",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/r/rp/Raphael.png"
+  },
+  {
+    "id": 186,
+    "name": "Sophina",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sp/Sophina.png"
+  },
+  {
+    "id": 187,
+    "name": "Leonard",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/l/ld/Leonard.png"
+  },
+  {
+    "id": 188,
+    "name": "Miranda",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/m/mr/Miranda.png"
+  },
+  {
+    "id": 189,
+    "name": "Oscar",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/o/os/Oscar.png"
+  },
+  {
+    "id": 190,
+    "name": "Ignatius",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/i/ig/Ignatius.png"
+  },
+  {
+    "id": 191,
+    "name": "Theresa",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/t/th/Theresa.png"
+  },
+  {
+    "id": 192,
+    "name": "Augustine",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/a/ag/Augustine.png"
+  },
+  {
+    "id": 193,
+    "name": "Benedict",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/b/bn/Benedict.png"
+  },
+  {
+    "id": 194,
+    "name": "Cyril",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/c/cr/Cyril.png"
+  },
+  {
+    "id": 195,
+    "name": "Dominic",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dc/Dominic.png"
+  },
+  {
+    "id": 196,
+    "name": "Ezekiel",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/e/ez/Ezekiel.png"
+  },
+  {
+    "id": 197,
+    "name": "Gabriel",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/g/gb/Gabriel.png"
+  },
+  {
+    "id": 198,
+    "name": "Michael",
+    "rarity": "Legendary",
+    "price": 750,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/m/mc/Michael.png"
+  },
+  {
+    "id": 199,
+    "name": "Uriel",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/u/ur/Uriel.png"
+  },
+  {
+    "id": 200,
+    "name": "Raphael",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Holy Church",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/r/rp/Raphael.png"
+  },
+  {
+    "id": 201,
+    "name": "Emperor Rudra Namulith",
+    "rarity": "Legendary",
+    "price": 750,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/r/rd/Rudra.png"
+  },
+  {
+    "id": 202,
+    "name": "Velgrynd",
+    "rarity": "Legendary",
+    "price": 800,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/v/vg/Velgrynd.png"
+  },
+  {
+    "id": 203,
+    "name": "Calgurio",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/c/cl/Calgurio.png"
+  },
+  {
+    "id": 204,
+    "name": "Kondo",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/k/kd/Kondo.png"
+  },
+  {
+    "id": 205,
+    "name": "Damrada",
+    "rarity": "Epic",
+    "price": 380,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dr/Damrada.png"
+  },
+  {
+    "id": 206,
+    "name": "Shogo Taguchi",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/st/Shogo.png"
+  },
+  {
+    "id": 207,
+    "name": "Kyoya Tachibana",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/k/kt/Kyoya.png"
+  },
+  {
+    "id": 208,
+    "name": "Kirara Mizutani",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/k/km/Kirara.png"
+  },
+  {
+    "id": 209,
+    "name": "Masayuki",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/m/ms/Masayuki.png"
+  },
+  {
+    "id": 210,
+    "name": "Arnaud",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/a/an/Arnaud.png"
+  },
+  {
+    "id": 211,
+    "name": "Bacchus",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/b/bc/Bacchus.png"
+  },
+  {
+    "id": 212,
+    "name": "Ritus",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/r/rt/Ritus.png"
+  },
+  {
+    "id": 213,
+    "name": "Glenda",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/g/gl/Glenda.png"
+  },
+  {
+    "id": 214,
+    "name": "Grigori",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/g/gr/Grigori.png"
+  },
+  {
+    "id": 215,
+    "name": "Velga",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/v/vg/Velga.png"
+  },
+  {
+    "id": 216,
+    "name": "Dante",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dt/Dante.png"
+  },
+  {
+    "id": 217,
+    "name": "Albert",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/a/ab/Albert.png"
+  },
+  {
+    "id": 218,
+    "name": "Boris",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/b/br/Boris.png"
+  },
+  {
+    "id": 219,
+    "name": "Lukas",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/l/lk/Lukas.png"
+  },
+  {
+    "id": 220,
+    "name": "Marius",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/m/mr/Marius.png"
+  },
+  {
+    "id": 221,
+    "name": "Sophia",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sp/Sophia.png"
+  },
+  {
+    "id": 222,
+    "name": "Victor",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/v/vc/Victor.png"
+  },
+  {
+    "id": 223,
+    "name": "Helena",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/h/hl/Helena.png"
+  },
+  {
+    "id": 224,
+    "name": "Damien",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dm/Damien.png"
+  },
+  {
+    "id": 225,
+    "name": "Claudia",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/c/cl/Claudia.png"
+  },
+  {
+    "id": 226,
+    "name": "Roland",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/r/rl/Roland.png"
+  },
+  {
+    "id": 227,
+    "name": "Isabella",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/i/ib/Isabella.png"
+  },
+  {
+    "id": 228,
+    "name": "Marcus",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/m/mc/Marcus.png"
+  },
+  {
+    "id": 229,
+    "name": "Elena",
+    "rarity": "Epic",
+    "price": 400,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/e/el/Elena.png"
+  },
+  {
+    "id": 230,
+    "name": "Sebastian",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sb/Sebastian.png"
+  },
+  {
+    "id": 231,
+    "name": "Cecilia",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/c/cc/Cecilia.png"
+  },
+  {
+    "id": 232,
+    "name": "Adrian",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/a/ad/Adrian.png"
+  },
+  {
+    "id": 233,
+    "name": "Beatrice",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/b/bt/Beatrice.png"
+  },
+  {
+    "id": 234,
+    "name": "Oliver",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/o/ol/Oliver.png"
+  },
+  {
+    "id": 235,
+    "name": "Natalia",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/n/nt/Natalia.png"
+  },
+  {
+    "id": 236,
+    "name": "Hector",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/h/hc/Hector.png"
+  },
+  {
+    "id": 237,
+    "name": "Camilla",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/c/cm/Camilla.png"
+  },
+  {
+    "id": 238,
+    "name": "Darius",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dr/Darius.png"
+  },
+  {
+    "id": 239,
+    "name": "Selene",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sl/Selene.png"
+  },
+  {
+    "id": 240,
+    "name": "Damian",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dm/Damian.png"
+  },
+  {
+    "id": 241,
+    "name": "Lucia",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/l/lc/Lucia.png"
+  },
+  {
+    "id": 242,
+    "name": "Raphael",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/r/rp/Raphael.png"
+  },
+  {
+    "id": 243,
+    "name": "Sophina",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sp/Sophina.png"
+  },
+  {
+    "id": 244,
+    "name": "Leonard",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/l/ld/Leonard.png"
+  },
+  {
+    "id": 245,
+    "name": "Miranda",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/m/mr/Miranda.png"
+  },
+  {
+    "id": 246,
+    "name": "Oscar",
+    "rarity": "Rare",
+    "price": 280,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/o/os/Oscar.png"
+  },
+  {
+    "id": 247,
+    "name": "Ignatius",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/i/ig/Ignatius.png"
+  },
+  {
+    "id": 248,
+    "name": "Theresa",
+    "rarity": "Epic",
+    "price": 420,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/t/th/Theresa.png"
+  },
+  {
+    "id": 249,
+    "name": "Augustine",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/a/ag/Augustine.png"
+  },
+  {
+    "id": 250,
+    "name": "Benedict",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Eastern Empire",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/b/bn/Benedict.png"
+  },
+  {
+    "id": 251,
+    "name": "Veldora Tempest",
+    "rarity": "Legendary",
+    "price": 800,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/v/vd/Veldora.png"
+  },
+  {
+    "id": 252,
+    "name": "Velgrynd",
+    "rarity": "Legendary",
+    "price": 850,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/v/vg/Velgrynd.png"
+  },
+  {
+    "id": 253,
+    "name": "Velzard",
+    "rarity": "Legendary",
+    "price": 850,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/v/vz/Velzard.png"
+  },
+  {
+    "id": 254,
+    "name": "Velgaia",
+    "rarity": "Legendary",
+    "price": 850,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/v/vg/Velgaia.png"
+  },
+  {
+    "id": 255,
+    "name": "Milim Nava (Dragon Form)",
+    "rarity": "Legendary",
+    "price": 900,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/m/mn/MilimDragon.png"
+  },
+  {
+    "id": 256,
+    "name": "Charybdis",
+    "rarity": "Epic",
+    "price": 500,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/c/ch/Charybdis.png"
+  },
+  {
+    "id": 257,
+    "name": "Ifrit",
+    "rarity": "Epic",
+    "price": 450,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/i/if/Ifrit.png"
+  },
+  {
+    "id": 258,
+    "name": "Kura",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/k/kr/Kura.png"
+  },
+  {
+    "id": 259,
+    "name": "Draco",
+    "rarity": "Rare",
+    "price": 320,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dr/Draco.png"
+  },
+  {
+    "id": 260,
+    "name": "Ignis",
+    "rarity": "Rare",
+    "price": 320,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/i/ig/Ignis.png"
+  },
+  {
+    "id": 261,
+    "name": "Hydra",
+    "rarity": "Epic",
+    "price": 480,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/h/hd/Hydra.png"
+  },
+  {
+    "id": 262,
+    "name": "Bahamut",
+    "rarity": "Legendary",
+    "price": 900,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/b/bh/Bahamut.png"
+  },
+  {
+    "id": 263,
+    "name": "Fafnir",
+    "rarity": "Epic",
+    "price": 500,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/f/fn/Fafnir.png"
+  },
+  {
+    "id": 264,
+    "name": "Nidhogg",
+    "rarity": "Epic",
+    "price": 500,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/n/nd/Nidhogg.png"
+  },
+  {
+    "id": 265,
+    "name": "Tiamat",
+    "rarity": "Legendary",
+    "price": 950,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/t/tt/Tiamat.png"
+  },
+  {
+    "id": 266,
+    "name": "Ryujin",
+    "rarity": "Epic",
+    "price": 480,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/r/rj/Ryujin.png"
+  },
+  {
+    "id": 267,
+    "name": "Shenlong",
+    "rarity": "Epic",
+    "price": 480,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sl/Shenlong.png"
+  },
+  {
+    "id": 268,
+    "name": "Dracul",
+    "rarity": "Rare",
+    "price": 320,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dc/Dracul.png"
+  },
+  {
+    "id": 269,
+    "name": "Wyvern",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/w/wv/Wyvern.png"
+  },
+  {
+    "id": 270,
+    "name": "Leviathan",
+    "rarity": "Legendary",
+    "price": 950,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/l/lv/Leviathan.png"
+  },
+  {
+    "id": 271,
+    "name": "Ouroboros",
+    "rarity": "Epic",
+    "price": 480,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/o/ou/Ouroboros.png"
+  },
+  {
+    "id": 272,
+    "name": "Quetzalcoatl",
+    "rarity": "Legendary",
+    "price": 950,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/q/qc/Quetzalcoatl.png"
+  },
+  {
+    "id": 273,
+    "name": "Jormungandr",
+    "rarity": "Legendary",
+    "price": 950,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/j/jg/Jormungandr.png"
+  },
+  {
+    "id": 274,
+    "name": "Ananta",
+    "rarity": "Epic",
+    "price": 500,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/a/an/Ananta.png"
+  },
+  {
+    "id": 275,
+    "name": "Typhon",
+    "rarity": "Legendary",
+    "price": 950,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/t/tp/Typhon.png"
+  },
+  {
+    "id": 276,
+    "name": "Bahamut (True Form)",
+    "rarity": "Legendary",
+    "price": 1000,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/b/bh/BahamutTrue.png"
+  },
+  {
+    "id": 277,
+    "name": "Draconis",
+    "rarity": "Rare",
+    "price": 320,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dc/Draconis.png"
+  },
+  {
+    "id": 278,
+    "name": "Azhdaha",
+    "rarity": "Epic",
+    "price": 480,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/a/az/Azhdaha.png"
+  },
+  {
+    "id": 279,
+    "name": "Naga",
+    "rarity": "Rare",
+    "price": 300,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/n/ng/Naga.png"
+  },
+  {
+    "id": 280,
+    "name": "Garuda",
+    "rarity": "Epic",
+    "price": 480,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/g/gr/Garuda.png"
+  },
+  {
+    "id": 281,
+    "name": "Rathalos",
+    "rarity": "Epic",
+    "price": 500,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/r/rt/Rathalos.png"
+  },
+  {
+    "id": 282,
+    "name": "Seregios",
+    "rarity": "Epic",
+    "price": 480,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sg/Seregios.png"
+  },
+  {
+    "id": 283,
+    "name": "Alatreon",
+    "rarity": "Legendary",
+    "price": 950,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/a/al/Alatreon.png"
+  },
+  {
+    "id": 284,
+    "name": "Fatalis",
+    "rarity": "Legendary",
+    "price": 1000,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/f/ft/Fatalis.png"
+  },
+  {
+    "id": 285,
+    "name": "Valstrax",
+    "rarity": "Epic",
+    "price": 500,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/v/vx/Valstrax.png"
+  },
+  {
+    "id": 286,
+    "name": "Kushala Daora",
+    "rarity": "Epic",
+    "price": 480,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/k/kd/Kushala.png"
+  },
+  {
+    "id": 287,
+    "name": "Teostra",
+    "rarity": "Epic",
+    "price": 480,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/t/ts/Teostra.png"
+  },
+  {
+    "id": 288,
+    "name": "Lunastra",
+    "rarity": "Epic",
+    "price": 480,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/l/ln/Lunastra.png"
+  },
+  {
+    "id": 289,
+    "name": "Rajang (Dragon Form)",
+    "rarity": "Epic",
+    "price": 500,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/r/rj/RajangDragon.png"
+  },
+  {
+    "id": 290,
+    "name": "Zinogre (Dragon Form)",
+    "rarity": "Epic",
+    "price": 500,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/z/zn/ZinogreDragon.png"
+  },
+  {
+    "id": 291,
+    "name": "Astalos",
+    "rarity": "Epic",
+    "price": 480,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/a/as/Astalos.png"
+  },
+  {
+    "id": 292,
+    "name": "Nergigante",
+    "rarity": "Legendary",
+    "price": 950,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/n/ng/Nergigante.png"
+  },
+  {
+    "id": 293,
+    "name": "Shagaru Magala",
+    "rarity": "Epic",
+    "price": 480,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sm/Shagaru.png"
+  },
+  {
+    "id": 294,
+    "name": "Gore Magala",
+    "rarity": "Epic",
+    "price": 480,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/g/gm/GoreMagala.png"
+  },
+  {
+    "id": 295,
+    "name": "Velkhana",
+    "rarity": "Legendary",
+    "price": 950,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/v/vk/Velkhana.png"
+  },
+  {
+    "id": 296,
+    "name": "Namielle",
+    "rarity": "Epic",
+    "price": 500,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/n/nm/Namielle.png"
+  },
+  {
+    "id": 296,
+    "name": "Namielle",
+    "rarity": "Epic",
+    "price": 500,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/n/nm/Namielle.png"
+  },
+  {
+    "id": 297,
+    "name": "Safi'jiiva",
+    "rarity": "Legendary",
+    "price": 1000,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sj/Safi'jiiva.png"
+  },
+  {
+    "id": 298,
+    "name": "Shenlong Prime",
+    "rarity": "Epic",
+    "price": 480,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/s/sl/ShenlongPrime.png"
+  },
+  {
+    "id": 299,
+    "name": "Draculon",
+    "rarity": "Rare",
+    "price": 320,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/d/dc/Draculon.png"
+  },
+  {
+    "id": 300,
+    "name": "Elder Dragon King",
+    "rarity": "Legendary",
+    "price": 1100,
+    "faction": "Dragons",
+    "image_url": "https://static.wikia.nocookie.net/tensei-shitara/images/e/ed/ElderDragonKing.png"
+  }
+]
+    
+
+   
+
