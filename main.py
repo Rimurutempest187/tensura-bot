@@ -14,9 +14,9 @@ from telegram.ext import (
 
 # ================= CONFIG =================
 
-BOT_TOKEN = "YOUR_BOT_TOKEN_HERE"
+BOT_TOKEN = "8372081478:AAHK5cw9n-TL6QJ4vRXYMSauJC2yX-uart8"
 
-OWNER_ID = 123456789        # 👈 သင့် Telegram ID
+OWNER_ID = 1812962224        # 👈 သင့် Telegram ID
 START_COINS = 500
 SUMMON_COST = 100
 
