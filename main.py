@@ -1,62 +1,74 @@
-import logging
-import json
-import random
-import os
 import sqlite3
+import random
+import logging
 
-from telegram import (
-    Update,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup
-)
-
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ApplicationBuilder,
+    ContextTypes,
     CommandHandler,
+    MessageHandler,
     CallbackQueryHandler,
-    ContextTypes
+    filters
 )
 
+# ================= CONFIG =================
 
-# ================== CONFIG ==================
+BOT_TOKEN = "8372081478:AAFxalS9jm1_q7WiAZsFrEmn5F7bQxFAHs4"
 
-TOKEN = "8372081478:AAFxalS9jm1_q7WiAZsFrEmn5F7bQxFAHs4"
+ADMIN_IDS = [1812962224]   # <-- Your Telegram ID
 
-ADMIN_IDS = [
-    1812962224  # <-- Your Telegram ID
-]
+DB_FILE = "bot.db"
 
-DB_NAME = "bot.db"
+START_COINS = 500
+DAILY_BONUS = 100
 
-# ============================================
-
-
-logging.basicConfig(
-    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-    level=logging.INFO
-)
-
-
-RARITY_EMOJI = {
-    "Common": "⚪",
-    "Rare": "🔵",
-    "Epic": "🟣",
-    "Legendary": "🟡"
+RARITY_CHANCE = {
+    "Common": 60,
+    "Rare": 25,
+    "Epic": 10,
+    "Legendary": 5
 }
 
+RARITY_EMOJI = {
+    "Common": "🌱",
+    "Rare": "🔮",
+    "Epic": "🔥",
+    "Legendary": "👑"
+}
 
-# ================== DATABASE ==================
+# ================= LOG =================
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# ================= DATABASE =================
+
+def db():
+    return sqlite3.connect(DB_FILE)
 
 def init_db():
 
-    conn = sqlite3.connect(DB_NAME)
-    cur = conn.cursor()
+    con = db()
+    cur = con.cursor()
 
     # Users
     cur.execute("""
     CREATE TABLE IF NOT EXISTS users (
         user_id INTEGER PRIMARY KEY,
-        coins INTEGER DEFAULT 1000
+        coins INTEGER
+    )
+    """)
+
+    # Characters
+    cur.execute("""
+    CREATE TABLE IF NOT EXISTS characters (
+        id INTEGER PRIMARY KEY,
+        name TEXT,
+        rarity TEXT,
+        price INTEGER,
+        faction TEXT,
+        file_id TEXT
     )
     """)
 
@@ -65,242 +77,277 @@ def init_db():
     CREATE TABLE IF NOT EXISTS inventory (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         user_id INTEGER,
-        char_id INTEGER,
-        name TEXT,
-        rarity TEXT
+        char_id INTEGER
     )
     """)
 
-    conn.commit()
-    conn.close()
+    con.commit()
+    con.close()
 
-
-# ================== DATA ==================
-
-def load_chars():
-
-    with open("characters.json", "r", encoding="utf-8") as f:
-        return json.load(f)
-
+# ================= USER =================
 
 def get_user(uid):
 
-    conn = sqlite3.connect(DB_NAME)
-    cur = conn.cursor()
+    con = db()
+    cur = con.cursor()
 
-    cur.execute(
-        "SELECT * FROM users WHERE user_id=?",
-        (uid,)
-    )
-
+    cur.execute("SELECT * FROM users WHERE user_id=?", (uid,))
     user = cur.fetchone()
 
     if not user:
-
         cur.execute(
-            "INSERT INTO users (user_id, coins) VALUES (?,1000)",
-            (uid,)
+            "INSERT INTO users VALUES (?,?)",
+            (uid, START_COINS)
         )
+        con.commit()
+        coins = START_COINS
+    else:
+        coins = user[1]
 
-        conn.commit()
+    con.close()
+    return coins
 
-        user = (uid, 1000)
+def update_coins(uid, amount):
 
-    conn.close()
-
-    return user
-
-
-def add_coins(uid, amount):
-
-    conn = sqlite3.connect(DB_NAME)
-    cur = conn.cursor()
+    con = db()
+    cur = con.cursor()
 
     cur.execute(
-        "UPDATE users SET coins = coins + ? WHERE user_id=?",
+        "UPDATE users SET coins=? WHERE user_id=?",
         (amount, uid)
     )
 
-    conn.commit()
-    conn.close()
+    con.commit()
+    con.close()
 
-
-def remove_coins(uid, amount):
-
-    conn = sqlite3.connect(DB_NAME)
-    cur = conn.cursor()
-
-    cur.execute(
-        "UPDATE users SET coins = coins - ? WHERE user_id=?",
-        (amount, uid)
-    )
-
-    conn.commit()
-    conn.close()
-
-
-def add_inventory(uid, char):
-
-    conn = sqlite3.connect(DB_NAME)
-    cur = conn.cursor()
-
-    cur.execute("""
-    INSERT INTO inventory
-    (user_id, char_id, name, rarity)
-    VALUES (?,?,?,?)
-    """, (
-        uid,
-        char["id"],
-        char["name"],
-        char["rarity"]
-    ))
-
-    conn.commit()
-    conn.close()
-
-
-def get_inventory(uid):
-
-    conn = sqlite3.connect(DB_NAME)
-    cur = conn.cursor()
-
-    cur.execute(
-        "SELECT name,rarity FROM inventory WHERE user_id=?",
-        (uid,)
-    )
-
-    rows = cur.fetchall()
-
-    conn.close()
-
-    return rows
-
-
-# ================== COMMANDS ==================
+# ================= START =================
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
-    user = get_user(update.effective_user.id)
+    uid = update.effective_user.id
+    coins = get_user(uid)
 
     await update.message.reply_text(
-        f"""
-👋 Welcome {update.effective_user.first_name}
-
-💰 Coins: {user[1]}
-
-Commands:
-/store - Shop
-/bal - Balance
-/inv - Inventory
-"""
+        f"🤖 Welcome!\n\n💰 Coins: {coins}\n\n"
+        "/store - Shop\n"
+        "/summon - Gacha\n"
+        "/inv - Inventory\n"
+        "/bal - Balance"
     )
 
+# ================= BALANCE =================
 
 async def balance(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
-    user = get_user(update.effective_user.id)
+    uid = update.effective_user.id
+    coins = get_user(uid)
 
     await update.message.reply_text(
-        f"💰 Your Coins: {user[1]}"
+        f"💳 Balance: {coins} coins"
     )
 
+# ================= SAVE PHOTO (ADMIN) =================
 
-async def inventory(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def save_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
-    items = get_inventory(update.effective_user.id)
+    uid = update.effective_user.id
 
-    if not items:
-        await update.message.reply_text("📦 Inventory empty.")
+    if uid not in ADMIN_IDS:
         return
 
-    text = "📦 Your Cards:\n\n"
+    if not update.message.photo:
+        return
 
-    for i in items:
-        text += f"{RARITY_EMOJI.get(i[1],'❓')} {i[0]} ({i[1]})\n"
+    caption = update.message.caption or ""
+    parts = [p.strip() for p in caption.split("|")]
 
-    await update.message.reply_text(text)
+    name = parts[0] if len(parts) >= 1 else "Unknown"
+    rarity = parts[1].capitalize() if len(parts) >= 2 else "Common"
+    price = int(parts[2]) if len(parts) >= 3 and parts[2].isdigit() else 100
+    faction = parts[3] if len(parts) >= 4 else "Unknown"
 
+    file_id = update.message.photo[-1].file_id
+
+    con = db()
+    cur = con.cursor()
+
+    cur.execute("""
+    INSERT INTO characters
+    (name,rarity,price,faction,file_id)
+    VALUES (?,?,?,?,?)
+    """, (name, rarity, price, faction, file_id))
+
+    con.commit()
+    con.close()
+
+    await update.message.reply_text(
+        f"✅ Saved: {name} ({rarity})"
+    )
+
+# ================= STORE =================
 
 async def store(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
-    chars = load_chars()
+    con = db()
+    cur = con.cursor()
+
+    cur.execute("SELECT * FROM characters")
+    chars = cur.fetchall()
+
+    con.close()
+
+    if not chars:
+        await update.message.reply_text("❌ No characters")
+        return
 
     char = random.choice(chars)
 
-    path = char["image_url"]
+    cid, name, rarity, price, faction, file_id = char
 
-    text = f"""
-{RARITY_EMOJI.get(char['rarity'],'❓')} {char['name']}
-⭐ {char['rarity']}
-💰 {char['price']} Coins
-"""
+    text = (
+        f"{RARITY_EMOJI[rarity]} *{name}*\n"
+        f"⭐ {rarity}\n"
+        f"💰 {price}\n"
+        f"🏷 {faction}"
+    )
 
-    keyboard = [
-        [
-            InlineKeyboardButton(
-                "🛒 Buy",
-                callback_data=f"buy_{char['id']}"
-            )
-        ]
+    kb = [
+        [InlineKeyboardButton("🛒 Buy", callback_data=f"buy_{cid}")]
     ]
 
-    markup = InlineKeyboardMarkup(keyboard)
+    await context.bot.send_photo(
+        chat_id=update.effective_chat.id,
+        photo=file_id,
+        caption=text,
+        parse_mode="Markdown",
+        reply_markup=InlineKeyboardMarkup(kb)
+    )
 
-    if not os.path.exists(path):
+# ================= BUY =================
 
-        await update.message.reply_text(
-            "❌ Image missing",
-            reply_markup=markup
-        )
-        return
-
-    with open(path, "rb") as img:
-
-        await context.bot.send_photo(
-            chat_id=update.effective_chat.id,
-            photo=img,
-            caption=text,
-            reply_markup=markup
-        )
-
-
-# ================== BUY ==================
-
-async def buy_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def buy(update: Update, context: ContextTypes.DEFAULT_TYPE, cid):
 
     query = update.callback_query
-    await query.answer()
-
     uid = query.from_user.id
 
-    char_id = int(query.data.split("_")[1])
+    coins = get_user(uid)
 
-    chars = load_chars()
+    con = db()
+    cur = con.cursor()
 
-    char = next(
-        (c for c in chars if c["id"] == char_id),
-        None
-    )
+    cur.execute("SELECT price FROM characters WHERE id=?", (cid,))
+    row = cur.fetchone()
 
-    if not char:
-        await query.edit_message_caption("❌ Item not found")
+    if not row:
+        await query.answer("Invalid")
         return
 
-    user = get_user(uid)
+    price = row[0]
 
-    if user[1] < char["price"]:
-        await query.edit_message_caption("❌ Not enough coins")
+    if coins < price:
+        await query.answer("Not enough coins")
         return
 
-    remove_coins(uid, char["price"])
-    add_inventory(uid, char)
+    update_coins(uid, coins - price)
 
-    await query.edit_message_caption(
-        f"✅ Purchased {char['name']}!"
+    cur.execute(
+        "INSERT INTO inventory(user_id,char_id) VALUES(?,?)",
+        (uid, cid)
     )
 
+    con.commit()
+    con.close()
 
-# ================== ADMIN ==================
+    await query.edit_message_caption("✅ Purchased!")
+
+# ================= INVENTORY =================
+
+async def inventory(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    uid = update.effective_user.id
+
+    con = db()
+    cur = con.cursor()
+
+    cur.execute("""
+    SELECT c.name,c.rarity
+    FROM inventory i
+    JOIN characters c ON i.char_id=c.id
+    WHERE i.user_id=?
+    """, (uid,))
+
+    items = cur.fetchall()
+    con.close()
+
+    if not items:
+        await update.message.reply_text("📦 Empty")
+        return
+
+    text = "📦 Inventory\n\n"
+
+    for i, c in enumerate(items, 1):
+        text += f"{i}. {RARITY_EMOJI[c[1]]} {c[0]}\n"
+
+    await update.message.reply_text(text)
+
+# ================= GACHA =================
+
+def roll():
+
+    r = random.randint(1, 100)
+    s = 0
+
+    for k, v in RARITY_CHANCE.items():
+        s += v
+        if r <= s:
+            return k
+
+    return "Common"
+
+async def summon(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    uid = update.effective_user.id
+    coins = get_user(uid)
+
+    if coins < 100:
+        await update.message.reply_text("❌ Need 100 coins")
+        return
+
+    rarity = roll()
+
+    con = db()
+    cur = con.cursor()
+
+    cur.execute(
+        "SELECT * FROM characters WHERE rarity=?",
+        (rarity,)
+    )
+
+    chars = cur.fetchall()
+
+    if not chars:
+        await update.message.reply_text("❌ No chars")
+        return
+
+    char = random.choice(chars)
+
+    update_coins(uid, coins - 100)
+
+    cur.execute(
+        "INSERT INTO inventory(user_id,char_id) VALUES(?,?)",
+        (uid, char[0])
+    )
+
+    con.commit()
+    con.close()
+
+    await context.bot.send_photo(
+        chat_id=update.effective_chat.id,
+        photo=char[5],
+        caption=f"🎲 Summoned {char[1]} ({rarity})"
+    )
+
+# ================= ADMIN GIVE =================
 
 async def give_coin(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
@@ -318,63 +365,42 @@ async def give_coin(update: Update, context: ContextTypes.DEFAULT_TYPE):
     target = int(context.args[0])
     amount = int(context.args[1])
 
-    add_coins(target, amount)
+    coins = get_user(target)
+
+    update_coins(target, coins + amount)
 
     await update.message.reply_text("✅ Coins given")
 
+# ================= CALLBACK =================
 
-async def give_char(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
-    uid = update.effective_user.id
+    q = update.callback_query
+    await q.answer()
 
-    if uid not in ADMIN_IDS:
-        return
+    if q.data.startswith("buy_"):
+        cid = int(q.data.split("_")[1])
+        await buy(update, context, cid)
 
-    if len(context.args) != 2:
-        await update.message.reply_text(
-            "/give_char user_id char_id"
-        )
-        return
-
-    target = int(context.args[0])
-    char_id = int(context.args[1])
-
-    chars = load_chars()
-
-    char = next(
-        (c for c in chars if c["id"] == char_id),
-        None
-    )
-
-    if not char:
-        await update.message.reply_text("❌ Char not found")
-        return
-
-    add_inventory(target, char)
-
-    await update.message.reply_text("✅ Character given")
-
-
-# ================== MAIN ==================
+# ================= MAIN =================
 
 def main():
 
     init_db()
 
-    app = ApplicationBuilder().token(TOKEN).build()
+    app = ApplicationBuilder().token(BOT_TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("store", store))
     app.add_handler(CommandHandler("bal", balance))
+    app.add_handler(CommandHandler("store", store))
     app.add_handler(CommandHandler("inv", inventory))
-
+    app.add_handler(CommandHandler("summon", summon))
     app.add_handler(CommandHandler("give_coin", give_coin))
-    app.add_handler(CommandHandler("give_char", give_char))
 
-    app.add_handler(CallbackQueryHandler(buy_callback))
+    app.add_handler(MessageHandler(filters.PHOTO, save_photo))
+    app.add_handler(CallbackQueryHandler(buttons))
 
-    print("🤖 Bot Started...")
-
+    logger.info("Bot Started")
     app.run_polling()
 
 
