@@ -1,602 +1,440 @@
-import sqlite3
+import json
 import random
-import logging
-
-from telegram import (
-    Update,
-    InlineKeyboardButton,
-    InlineKeyboardMarkup,
-    InputMediaPhoto
-)
-
+import os
+from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import (
     ApplicationBuilder,
-    ContextTypes,
     CommandHandler,
     MessageHandler,
     CallbackQueryHandler,
-    filters
+    ContextTypes,
+    filters,
 )
 
 # ================= CONFIG =================
 
 BOT_TOKEN = "8372081478:AAHK5cw9n-TL6QJ4vRXYMSauJC2yX-uart8"
 
-OWNER_ID = 1812962224   # Your Telegram ID
+CHAR_FILE = "characters.json"
+INV_FILE = "inventory.json"
+COIN_FILE = "coins.json"
+ADMINS_FILE = "admins.json"
 
-START_COINS = 500
-SUMMON_COST = 100
+DAILY_START_COINS = 100
+MAX_BUY = 5
 
-DB_FILE = "bot.db"
 
-STORE_CACHE = {}
-
-RARITY_CHANCE = {
+RARITY_RATE = {
     "Common": 60,
     "Rare": 25,
     "Epic": 10,
     "Legendary": 5
 }
 
-RARITY_EMOJI = {
-    "Common": "🌱",
-    "Rare": "🔮",
-    "Epic": "🔥",
-    "Legendary": "👑"
-}
 
-# ================= LOG =================
+# ================= DB =================
 
-logging.basicConfig(level=logging.INFO)
-logger = logging.getLogger(__name__)
-
-# ================= DATABASE =================
-
-def db():
-    return sqlite3.connect(DB_FILE)
+def load_json(file):
+    if not os.path.exists(file):
+        with open(file, "w") as f:
+            json.dump({}, f)
+    with open(file, "r") as f:
+        return json.load(f)
 
 
-def init_db():
-
-    con = db()
-    cur = con.cursor()
-
-    cur.execute("""
-    CREATE TABLE IF NOT EXISTS users(
-        user_id INTEGER PRIMARY KEY,
-        coins INTEGER
-    )
-    """)
-
-    cur.execute("""
-    CREATE TABLE IF NOT EXISTS admins(
-        user_id INTEGER PRIMARY KEY
-    )
-    """)
-
-    cur.execute("""
-    CREATE TABLE IF NOT EXISTS characters(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        name TEXT,
-        rarity TEXT,
-        price INTEGER,
-        faction TEXT,
-        file_id TEXT
-    )
-    """)
-
-    cur.execute("""
-    CREATE TABLE IF NOT EXISTS inventory(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
-        user_id INTEGER,
-        char_id INTEGER
-    )
-    """)
-
-    con.commit()
-    con.close()
+def save_json(file, data):
+    with open(file, "w") as f:
+        json.dump(data, f, indent=4)
 
 
-# ================= UTIL =================
+# ================= ADMIN =================
 
 def is_admin(uid):
-
-    if uid == OWNER_ID:
-        return True
-
-    con = db()
-    cur = con.cursor()
-
-    cur.execute("SELECT user_id FROM admins WHERE user_id=?", (uid,))
-    r = cur.fetchone()
-
-    con.close()
-
-    return r is not None
+    admins = load_json(ADMINS_FILE)
+    return str(uid) in admins
 
 
-def get_user(uid):
+# ================= USER INIT =================
 
-    con = db()
-    cur = con.cursor()
+def init_user(uid):
+    coins = load_json(COIN_FILE)
+    inv = load_json(INV_FILE)
 
-    cur.execute("SELECT coins FROM users WHERE user_id=?", (uid,))
-    r = cur.fetchone()
+    if uid not in coins:
+        coins[uid] = DAILY_START_COINS
 
-    if not r:
+    if uid not in inv:
+        inv[uid] = []
 
-        cur.execute(
-            "INSERT INTO users VALUES(?,?)",
-            (uid, START_COINS)
-        )
-
-        con.commit()
-        coins = START_COINS
-
-    else:
-        coins = r[0]
-
-    con.close()
-
-    return coins
-
-
-def set_coins(uid, coins):
-
-    con = db()
-    cur = con.cursor()
-
-    cur.execute(
-        "UPDATE users SET coins=? WHERE user_id=?",
-        (coins, uid)
-    )
-
-    con.commit()
-    con.close()
+    save_json(COIN_FILE, coins)
+    save_json(INV_FILE, inv)
 
 
 # ================= START =================
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
-    uid = update.effective_user.id
-    coins = get_user(uid)
+    uid = str(update.effective_user.id)
 
-    await update.message.reply_text(
-        f"🤖 Welcome!\n\n"
-        f"💰 Coins: {coins}\n\n"
-        "/store - Store\n"
-        "/summon - Gacha\n"
-        "/inv - Inventory\n"
-        "/bal - Balance\n"
-        "/rank - Ranking"
-    )
+    init_user(uid)
+
+    coins = load_json(COIN_FILE)[uid]
+    inv = load_json(INV_FILE)[uid]
+
+    msg = f"""
+🎮 Gacha Bot
+
+💰 Coins: {coins}
+🎴 Characters: {len(inv)}
+
+Commands:
+/summon
+/store
+/inventory
+/ranking
+/balance
+"""
+
+    await update.message.reply_text(msg)
 
 
-# ================= BAL =================
+# ================= BALANCE =================
 
-async def bal(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def balance(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
-    coins = get_user(update.effective_user.id)
+    uid = str(update.effective_user.id)
 
-    await update.message.reply_text(
-        f"💳 Balance: {coins}"
-    )
+    init_user(uid)
+
+    coins = load_json(COIN_FILE)[uid]
+
+    await update.message.reply_text(f"💰 Coins: {coins}")
 
 
-# ================= RANK =================
+# ================= RARITY =================
 
-async def rank(update: Update, context: ContextTypes.DEFAULT_TYPE):
+def roll_rarity():
 
-    con = db()
-    cur = con.cursor()
+    r = random.randint(1, 100)
+    total = 0
 
-    cur.execute("""
-    SELECT user_id,coins
-    FROM users
-    ORDER BY coins DESC
-    LIMIT 10
-    """)
+    for k, v in RARITY_RATE.items():
+        total += v
+        if r <= total:
+            return k
 
-    data = cur.fetchall()
-    con.close()
+    return "Common"
 
-    if not data:
-        await update.message.reply_text("No ranking data")
+
+# ================= SUMMON =================
+
+async def summon(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    uid = str(update.effective_user.id)
+
+    init_user(uid)
+
+    chars = load_json(CHAR_FILE)
+
+    if not chars:
+        await update.message.reply_text("No characters yet.")
         return
 
-    text = "🏆 TOP 10 RANKING 🏆\n\n"
+    rarity = roll_rarity()
 
-    for i, (uid, coins) in enumerate(data, 1):
+    pool = [c for c in chars if c["rarity"] == rarity]
 
-        try:
-            user = await context.bot.get_chat(uid)
-            name = user.first_name
-        except:
-            name = "Unknown"
-
-        text += f"{i}. {name} — 💰 {coins}\n"
-
-    await update.message.reply_text(text)
-
-
-# ================= PHOTO UPLOAD =================
-
-async def save_photo(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
-    uid = update.effective_user.id
-
-    if not is_admin(uid):
+    if not pool:
+        await update.message.reply_text("No characters for this rarity.")
         return
 
-    if not update.message.photo:
-        return
+    char = random.choice(pool)
 
-    caption = update.message.caption or ""
-    parts = [p.strip() for p in caption.split("|")]
+    inv = load_json(INV_FILE)
+    inv[uid].append(char)
+    save_json(INV_FILE, inv)
 
-    name = parts[0] if len(parts) >= 1 and parts[0] else "Unknown"
-    rarity = parts[1].capitalize() if len(parts) >= 2 else "Common"
-    price = int(parts[2]) if len(parts) >= 3 and parts[2].isdigit() else 100
-    faction = parts[3] if len(parts) >= 4 else "Unknown"
+    caption = format_char(char)
 
-    file_id = update.message.photo[-1].file_id
-
-    con = db()
-    cur = con.cursor()
-
-    cur.execute("""
-    INSERT INTO characters(name,rarity,price,faction,file_id)
-    VALUES(?,?,?,?,?)
-    """, (name, rarity, price, faction, file_id))
-
-    con.commit()
-    con.close()
-
-    await update.message.reply_text("✅ Character Saved")
+    await update.message.reply_photo(char["file_id"], caption=caption)
 
 
 # ================= STORE =================
 
 async def store(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
-    uid = update.effective_user.id
-
-    con = db()
-    cur = con.cursor()
-
-    cur.execute("SELECT * FROM characters")
-    chars = cur.fetchall()
-
-    con.close()
+    chars = load_json(CHAR_FILE)
 
     if not chars:
-        await update.message.reply_text("Store empty")
-        return
-
-    STORE_CACHE[uid] = chars
-
-    await show_store(update, context, uid, 0)
-
-
-async def show_store(update, context, uid, index):
-
-    chars = STORE_CACHE.get(uid)
-
-    if not chars:
-        return
-
-    if index >= len(chars):
-        index = 0
-
-    if index < 0:
-        index = len(chars) - 1
-
-    char = chars[index]
-
-    cid, name, rarity, price, faction, file_id = char
-
-    text = (
-        f"{RARITY_EMOJI.get(rarity,'❓')} *{name}*\n"
-        f"⭐ {rarity}\n"
-        f"💰 {price}\n"
-        f"🏷 {faction}\n\n"
-        f"{index+1}/{len(chars)}"
-    )
-
-    kb = [
-        [
-            InlineKeyboardButton("⬅️ Prev", callback_data=f"prev_{index}"),
-            InlineKeyboardButton("➡️ Next", callback_data=f"next_{index}")
-        ],
-        [
-            InlineKeyboardButton("🛒 Buy", callback_data=f"buy_{cid}")
-        ]
-    ]
-
-    if update.callback_query:
-
-        media = InputMediaPhoto(
-            media=file_id,
-            caption=text,
-            parse_mode="Markdown"
-        )
-
-        await update.callback_query.edit_message_media(
-            media=media,
-            reply_markup=InlineKeyboardMarkup(kb)
-        )
-
-    else:
-
-        await context.bot.send_photo(
-            chat_id=update.effective_chat.id,
-            photo=file_id,
-            caption=text,
-            parse_mode="Markdown",
-            reply_markup=InlineKeyboardMarkup(kb)
-        )
-
-
-# ================= BUY =================
-
-async def buy(update: Update, context: ContextTypes.DEFAULT_TYPE, cid):
-
-    q = update.callback_query
-    uid = q.from_user.id
-
-    coins = get_user(uid)
-
-    con = db()
-    cur = con.cursor()
-
-    cur.execute(
-        "SELECT price FROM characters WHERE id=?",
-        (cid,)
-    )
-
-    r = cur.fetchone()
-
-    if not r:
-        await q.answer("Invalid")
-        return
-
-    price = r[0]
-
-    if coins < price:
-        await q.answer("Not enough coins")
-        return
-
-    set_coins(uid, coins - price)
-
-    cur.execute("""
-    INSERT INTO inventory(user_id,char_id)
-    VALUES(?,?)
-    """, (uid, cid))
-
-    con.commit()
-    con.close()
-
-    await q.edit_message_caption("✅ Purchased!")
-
-
-# ================= INVENTORY =================
-
-async def inv(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
-    uid = update.effective_user.id
-
-    con = db()
-    cur = con.cursor()
-
-    cur.execute("""
-    SELECT c.name,c.rarity
-    FROM inventory i
-    JOIN characters c ON i.char_id=c.id
-    WHERE i.user_id=?
-    """, (uid,))
-
-    items = cur.fetchall()
-
-    con.close()
-
-    if not items:
-        await update.message.reply_text("Inventory empty")
-        return
-
-    text = "📦 Inventory\n\n"
-
-    for i, (name, rarity) in enumerate(items, 1):
-
-        text += f"{i}. {RARITY_EMOJI[rarity]} {name}\n"
-
-    await update.message.reply_text(text)
-
-
-# ================= GACHA =================
-
-def roll_rarity():
-
-    r = random.randint(1, 100)
-
-    s = 0
-
-    for k, v in RARITY_CHANCE.items():
-
-        s += v
-
-        if r <= s:
-            return k
-
-    return "Common"
-
-
-async def summon(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
-    uid = update.effective_user.id
-    coins = get_user(uid)
-
-    if coins < SUMMON_COST:
-        await update.message.reply_text("Not enough coins")
-        return
-
-    rarity = roll_rarity()
-
-    con = db()
-    cur = con.cursor()
-
-    cur.execute(
-        "SELECT * FROM characters WHERE rarity=?",
-        (rarity,)
-    )
-
-    chars = cur.fetchall()
-
-    if not chars:
-        await update.message.reply_text("No characters")
+        await update.message.reply_text("Store empty.")
         return
 
     char = random.choice(chars)
 
-    set_coins(uid, coins - SUMMON_COST)
+    keyboard = [
+        [
+            InlineKeyboardButton("Buy", callback_data=f"buy_{char['id']}"),
+            InlineKeyboardButton("Next", callback_data="next")
+        ]
+    ]
 
-    cur.execute("""
-    INSERT INTO inventory(user_id,char_id)
-    VALUES(?,?)
-    """, (uid, char[0]))
-
-    con.commit()
-    con.close()
-
-    await context.bot.send_photo(
-        chat_id=update.effective_chat.id,
-        photo=char[5],
-        caption=f"🎲 Summoned {char[1]} ({rarity})"
+    await update.message.reply_photo(
+        char["file_id"],
+        caption=format_char(char),
+        reply_markup=InlineKeyboardMarkup(keyboard)
     )
 
 
-# ================= ADMIN =================
-
-async def add_admin(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
-    if update.effective_user.id != OWNER_ID:
-        return
-
-    if len(context.args) != 1:
-        await update.message.reply_text("/add_admin user_id")
-        return
-
-    target = int(context.args[0])
-
-    con = db()
-    cur = con.cursor()
-
-    cur.execute(
-        "INSERT OR IGNORE INTO admins VALUES(?)",
-        (target,)
-    )
-
-    con.commit()
-    con.close()
-
-    await update.message.reply_text("Admin Added")
-
-
-async def remove_admin(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
-    if update.effective_user.id != OWNER_ID:
-        return
-
-    if len(context.args) != 1:
-        await update.message.reply_text("/remove_admin user_id")
-        return
-
-    target = int(context.args[0])
-
-    con = db()
-    cur = con.cursor()
-
-    cur.execute(
-        "DELETE FROM admins WHERE user_id=?",
-        (target,)
-    )
-
-    con.commit()
-    con.close()
-
-    await update.message.reply_text("Admin Removed")
-
-
-async def give_coin(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
-    if not is_admin(update.effective_user.id):
-        return
-
-    if len(context.args) != 2:
-        await update.message.reply_text("/give_coin user_id amount")
-        return
-
-    target = int(context.args[0])
-    amount = int(context.args[1])
-
-    coins = get_user(target)
-
-    set_coins(target, coins + amount)
-
-    await update.message.reply_text("Coins Given")
-
-
-# ================= BUTTON =================
-
-async def buttons(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def store_btn(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     q = update.callback_query
     await q.answer()
 
-    uid = q.from_user.id
     data = q.data
+    uid = str(q.from_user.id)
+
+    init_user(uid)
+
+    if data == "next":
+        await store(update, context)
+        return
 
     if data.startswith("buy_"):
 
-        cid = int(data.split("_")[1])
-        await buy(update, context, cid)
+        cid = data.split("_")[1]
 
-    elif data.startswith("next_"):
+        chars = load_json(CHAR_FILE)
+        char = next((c for c in chars if str(c["id"]) == cid), None)
 
-        i = int(data.split("_")[1]) + 1
-        await show_store(update, context, uid, i)
+        if not char:
+            await q.edit_message_text("Not found")
+            return
 
-    elif data.startswith("prev_"):
+        coins = load_json(COIN_FILE)
+        inv = load_json(INV_FILE)
 
-        i = int(data.split("_")[1]) - 1
-        await show_store(update, context, uid, i)
+        if coins[uid] < char["price"]:
+            await q.edit_message_text("Not enough coins.")
+            return
+
+        coins[uid] -= char["price"]
+        inv[uid].append(char)
+
+        save_json(COIN_FILE, coins)
+        save_json(INV_FILE, inv)
+
+        await q.edit_message_caption(f"✅ Bought {char['name']}")
+
+
+# ================= INVENTORY =================
+
+async def inventory(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    uid = str(update.effective_user.id)
+
+    init_user(uid)
+
+    inv = load_json(INV_FILE)[uid]
+
+    if not inv:
+        await update.message.reply_text("Empty inventory.")
+        return
+
+    msg = "🎴 Inventory\n\n"
+
+    for i, c in enumerate(inv, 1):
+        msg += f"{i}. {c['name']} ({c['rarity']})\n"
+
+    await update.message.reply_text(msg)
+
+
+# ================= RANKING =================
+
+async def ranking(update: Update, context: ContextTypes.DEFAULT_TYPE):
+
+    coins = load_json(COIN_FILE)
+    inv = load_json(INV_FILE)
+
+    board = []
+
+    for u in coins:
+        board.append((u, coins[u], len(inv.get(u, []))))
+
+    board.sort(key=lambda x: (x[1], x[2]), reverse=True)
+
+    msg = "🏆 Ranking\n\n"
+
+    for i, u in enumerate(board[:10], 1):
+        msg += f"{i}. {u[1]} coins | {u[2]} chars\n"
+
+    await update.message.reply_text(msg)
+
+
+# ================= ADMIN =================
+
+async def add_admin(update: Update, context):
+
+    uid = str(update.effective_user.id)
+
+    if not is_admin(uid):
+        return
+
+    if not context.args:
+        return
+
+    target = context.args[0]
+
+    admins = load_json(ADMINS_FILE)
+    admins.append(target)
+
+    save_json(ADMINS_FILE, admins)
+
+    await update.message.reply_text("Admin added.")
+
+
+async def remove_admin(update: Update, context):
+
+    uid = str(update.effective_user.id)
+
+    if not is_admin(uid):
+        return
+
+    target = context.args[0]
+
+    admins = load_json(ADMINS_FILE)
+    admins.remove(target)
+
+    save_json(ADMINS_FILE, admins)
+
+    await update.message.reply_text("Admin removed.")
+
+
+# ================= ADD COINS =================
+
+async def addcoins(update: Update, context):
+
+    uid = str(update.effective_user.id)
+
+    if not is_admin(uid):
+        return
+
+    if not update.message.reply_to_message:
+        return
+
+    target = str(update.message.reply_to_message.from_user.id)
+
+    amount = int(context.args[0])
+
+    coins = load_json(COIN_FILE)
+
+    coins[target] = coins.get(target, 0) + amount
+
+    save_json(COIN_FILE, coins)
+
+    await update.message.reply_text("Coins added.")
+
+
+# ================= ADD CHAR =================
+
+async def addchar(update: Update, context):
+
+    uid = str(update.effective_user.id)
+
+    if not is_admin(uid):
+        return
+
+    if not update.message.reply_to_message:
+        return
+
+    target = str(update.message.reply_to_message.from_user.id)
+
+    cid = context.args[0]
+
+    chars = load_json(CHAR_FILE)
+    char = next((c for c in chars if str(c["id"]) == cid), None)
+
+    if not char:
+        return
+
+    inv = load_json(INV_FILE)
+    inv[target].append(char)
+
+    save_json(INV_FILE, inv)
+
+    await update.message.reply_text("Character given.")
+
+
+# ================= PHOTO REGISTER =================
+
+async def photo_handler(update: Update, context):
+
+    uid = str(update.effective_user.id)
+
+    if not is_admin(uid):
+        return
+
+    if not update.message.caption:
+        return
+
+    data = {}
+
+    for line in update.message.caption.split("\n"):
+        k, v = line.split(":")
+        data[k.strip().lower()] = v.strip()
+
+    chars = load_json(CHAR_FILE)
+
+    data["id"] = len(chars) + 1
+    data["file_id"] = update.message.photo[-1].file_id
+
+    data["price"] = int(data["price"])
+    data["power"] = int(data["power"])
+
+    chars.append(data)
+
+    save_json(CHAR_FILE, chars)
+
+    await update.message.reply_text("Character saved.")
+
+
+# ================= FORMAT =================
+
+def format_char(c):
+
+    return f"""
+🆔 {c['id']}
+🔥 {c['name']}
+⭐ {c['rarity']}
+🏰 {c['faction']}
+⚔️ {c['power']}
+💰 {c['price']} coins
+"""
 
 
 # ================= MAIN =================
 
 def main():
 
-    init_db()
-
     app = ApplicationBuilder().token(BOT_TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("bal", bal))
-    app.add_handler(CommandHandler("rank", rank))
-    app.add_handler(CommandHandler("store", store))
-    app.add_handler(CommandHandler("inv", inv))
+    app.add_handler(CommandHandler("balance", balance))
     app.add_handler(CommandHandler("summon", summon))
+    app.add_handler(CommandHandler("store", store))
+    app.add_handler(CommandHandler("inventory", inventory))
+    app.add_handler(CommandHandler("ranking", ranking))
 
-    app.add_handler(CommandHandler("add_admin", add_admin))
+    app.add_handler(CommandHandler("addadmin", add_admin))
     app.add_handler(CommandHandler("remove_admin", remove_admin))
-    app.add_handler(CommandHandler("give_coin", give_coin))
 
-    app.add_handler(MessageHandler(filters.PHOTO, save_photo))
+    app.add_handler(CommandHandler("addcoins", addcoins))
+    app.add_handler(CommandHandler("addchar", addchar))
 
-    app.add_handler(CallbackQueryHandler(buttons))
+    app.add_handler(MessageHandler(filters.PHOTO, photo_handler))
 
-    logger.info("Bot Started")
+    app.add_handler(CallbackQueryHandler(store_btn))
 
+    print("Bot running...")
     app.run_polling()
 
 
