@@ -14,7 +14,7 @@ from telegram.ext import (
 
 # ================= CONFIG =================
 
-BOT_TOKEN = "8372081478:AAFxalS9jm1_q7WiAZsFrEmn5F7bQxFAHs4"
+BOT_TOKEN = "8372081478:AAHK5cw9n-TL6QJ4vRXYMSauJC2yX-uart8"
 
 ADMIN_IDS = [1812962224]   # <-- Your Telegram ID
 
