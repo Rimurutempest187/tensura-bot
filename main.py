@@ -265,33 +265,30 @@ async def quiz_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # Answer
 # ----------------------
 async def answer_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    user_id = str(update.effective_user.id)
+    add_user_if_missing(update.effective_user.id)  # Ensure user exists
 
+    users = load_json(config.USERS_FILE, {})
+    
     if "quiz_answer" not in context.user_data:
-        await update.message.reply_text("Use /quiz first.")
+        await update.message.reply_text("Start a quiz first with /quiz")
         return
-
     if not context.args:
-        await update.message.reply_text("Usage: /answer A/B/C/D")
+        await update.message.reply_text("Usage: /answer <your answer>")
         return
 
-    user_answer = context.args[0].upper()
+    user_answer = " ".join(context.args)
+    correct = context.user_data.get("quiz_answer")
 
-    correct = context.user_data["quiz_answer"]
-
-    if user_answer == correct:
-
-        users = load_json(config.USERS_FILE, {})
-        uid = str(update.effective_user.id)
-
-        users[uid]["quiz_score"] += 1
+    if check_answer(user_answer, correct):
+        # Initialize quiz_score if not present
+        users[user_id].setdefault("quiz_score", 0)
+        users[user_id]["quiz_score"] += 1
         save_json(config.USERS_FILE, users)
-
-        await update.message.reply_text("✅ Correct! +1 Point")
-
+        await update.message.reply_text(f"✅ Correct! Your score: {users[user_id]['quiz_score']}")
     else:
-        await update.message.reply_text(
-            f"❌ Wrong! Correct answer: {correct}"
-        )
+        await update.message.reply_text(f"❌ Wrong. Correct: {correct}")
+
 
 # ----------------------
 # Ranking
