@@ -137,11 +137,12 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     await update.message.reply_text(
-    "🙌 Welcome, dear friend!
-    Here you’ll find encouragement, Bible verses,quiz and fellowship.
-    Let God lead you every step of the way.
-    Type /cmd to begin."
-    ) 
+    "🙌 Welcome, dear friend!\n"
+    "Here you’ll find encouragement, Bible verses, and fellowship.\n"
+    "Let God lead you every step of the way.\n"
+    "Type /cmd to begin."
+)
+
 
 
 
