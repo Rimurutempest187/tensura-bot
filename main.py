@@ -137,13 +137,10 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     await update.message.reply_text(
-    "🌟 မင်္ဂလာပါ!\n\n"
-    "Youth Commanders မှ ကြိုဆိုပါတယ် 💒\n\n"
-    "ဒီနေရာမှာ —\n"
-    "📖 ကျမ်းစာ ဖတ်မယ်\n"
-    "🏆 Quiz ဖြေမယ်\n\n"
-    "Let’s grow in faith together 💙"
-)
+🙌 Welcome, dear friend!
+Here you’ll find encouragement, Bible verses,quiz and fellowship.
+Let God lead you every step of the way.
+Type /cmd to begin.) 
 
 
 
@@ -151,7 +148,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     text = (
         "/start - Register\n"
-        "/help - Help\n"
+        "/cmd - All command\n"
         "/verse - Random verse\n"
         "/prayer <text> - Prayer request\n"
         "/events - Events\n"
