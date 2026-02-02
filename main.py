@@ -137,14 +137,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
     await update.message.reply_text(
-🙌 Welcome, dear friend!
-Here you’ll find encouragement, Bible verses,quiz and fellowship.
-Let God lead you every step of the way.
-Type /cmd to begin.) 
+    "🙌 Welcome, dear friend!
+    Here you’ll find encouragement, Bible verses,quiz and fellowship.
+    Let God lead you every step of the way.
+    Type /cmd to begin."
+    ) 
 
 
 
-async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def cmd_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     text = (
         "/start - Register\n"
@@ -157,9 +158,6 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "/tops - Ranking\n"
         "/daily_inspiration - Motivation\n"
         "/broadcast <text> - Admin\n"
-        "/send_pdf <file> - Admin\n"
-        "/send_audio <file> - Admin\n"
-        "/send_image <file> - Admin"
     )
 
     await update.message.reply_text(text)
@@ -485,7 +483,7 @@ def main():
 
     # Commands
     app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("help", help_command))
+    app.add_handler(CommandHandler("cmd", cmd_command))
     app.add_handler(CommandHandler("verse", verse))
     app.add_handler(CommandHandler("prayer", prayer))
     app.add_handler(CommandHandler("events", events_command))
