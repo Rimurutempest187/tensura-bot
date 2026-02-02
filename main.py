@@ -241,25 +241,24 @@ async def events_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # ----------------------
 async def quiz_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
-    user = update.effective_user
+    quizzes = load_json(config.QUIZZES_FILE, [])
 
-    add_user_if_missing(
-        user.id,
-        user.username,
-        f"{user.first_name or ''} {user.last_name or ''}".strip()
-    )
-
-    q = get_random_quiz()
-
-    if not q:
-        await update.message.reply_text("No quiz.")
+    if not quizzes:
+        await update.message.reply_text("No quiz available.")
         return
 
-    context.user_data["quiz_answer"] = q.get("Answer")
+    q = random.choice(quizzes)
 
-    await update.message.reply_text(
-        f"❓ {q.get('Question')}"
-    )
+    context.user_data["quiz_answer"] = q["answer"]
+
+    text = f"❓ {q['question']}\n\n"
+
+    for c in q["choices"]:
+        text += c + "\n"
+
+    text += "\nReply with: /answer A / B / C / D"
+
+    await update.message.reply_text(text)
 
 
 # ----------------------
@@ -267,50 +266,32 @@ async def quiz_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 # ----------------------
 async def answer_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
-    user = update.effective_user
-
-    add_user_if_missing(
-        user.id,
-        user.username,
-        f"{user.first_name or ''} {user.last_name or ''}".strip()
-    )
-
     if "quiz_answer" not in context.user_data:
-        await update.message.reply_text(
-            "Use /quiz first."
-        )
+        await update.message.reply_text("Use /quiz first.")
         return
 
     if not context.args:
-        await update.message.reply_text(
-            "Usage: /answer <text>"
-        )
+        await update.message.reply_text("Usage: /answer A/B/C/D")
         return
 
-    user_answer = " ".join(context.args)
+    user_answer = context.args[0].upper()
 
     correct = context.user_data["quiz_answer"]
 
-    if check_answer(user_answer, correct):
+    if user_answer == correct:
 
         users = load_json(config.USERS_FILE, {})
-
-        uid = str(user.id)
+        uid = str(update.effective_user.id)
 
         users[uid]["quiz_score"] += 1
-
         save_json(config.USERS_FILE, users)
 
-        await update.message.reply_text(
-            "✅ Correct! +1 Point"
-        )
+        await update.message.reply_text("✅ Correct! +1 Point")
 
     else:
-
         await update.message.reply_text(
-            f"❌ Wrong! Answer: {correct}"
+            f"❌ Wrong! Correct answer: {correct}"
         )
-
 
 # ----------------------
 # Ranking
