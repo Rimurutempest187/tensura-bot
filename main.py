@@ -136,10 +136,15 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         f"{user.first_name or ''} {user.last_name or ''}".strip()
     )
 
-    await update.message.reply_text(
-        "🙏 Welcome to Church Youth Bot!\n"
-        "Use /help to see commands."
-    )
+   await update.message.reply_text(
+    "🌟 မင်္ဂလာပါ!\n\n"
+    "Youth Commanders မှ ကြိုဆိုပါတယ် 💒\n\n"
+    "ဒီနေရာမှာ —\n"
+    "📖 ကျမ်းစာ ဖတ်မယ်\n"
+    "🏆 Quiz ဖြေမယ်\n\n"
+    "Let’s grow in faith together 💙"
+)
+
 
 
 async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -211,7 +216,7 @@ async def prayer(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     save_json(config.USERS_FILE, users)
 
-    await update.message.reply_text("🙏 Saved.")
+    await update.message.reply_text("Saved.")
 
 
 # ----------------------
@@ -355,11 +360,27 @@ async def tops_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def daily_inspiration(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     msgs = [
-        "🌟 Stay faithful!",
-        "🙏 God is with you.",
-        "✨ Keep going!",
-        "🕊️ Peace today."
-    ]
+    "📖 “The Lord is my shepherd; I shall not want.” (Psalm 23:1)\nTrust Him to guide you today. 🙏",
+
+    "✨ “I can do all things through Christ who strengthens me.” (Philippians 4:13)\nYou are stronger than you think. 💪",
+
+    "🕊️ “Peace I leave with you; My peace I give you.” (John 14:27)\nLet God’s peace fill your heart today. 💙",
+
+    "🌟 “For I know the plans I have for you,” declares the Lord. (Jeremiah 29:11)\nYour future is in His hands. 🙌",
+
+    "💖 “Love is patient, love is kind.” (1 Corinthians 13:4)\nChoose love in every situation today.",
+
+    "🔥 “The Lord is my light and my salvation—whom shall I fear?” (Psalm 27:1)\nWalk boldly in faith today.",
+
+    "🌈 “Those who hope in the Lord will renew their strength.” (Isaiah 40:31)\nWait on Him and be renewed. ✨",
+
+    "🙏 “Ask and it will be given to you; seek and you will find.” (Matthew 7:7)\nNever stop praying.",
+
+    "💎 “Be strong and courageous… for the Lord your God is with you.” (Joshua 1:9)\nYou are never alone.",
+
+    "📜 “Give thanks in all circumstances.” (1 Thessalonians 5:18)\nA thankful heart brings joy. 😊"
+]
+
 
     await update.message.reply_text(
         random.choice(msgs)
