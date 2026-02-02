@@ -1,55 +1,1062 @@
 [
-  {"Question": "Who built the ark?", "Answer": "Noah"},
-  {"Question": "Where was Jesus born?", "Answer": "Bethlehem"},
-  {"Question": "Who was swallowed by a big fish?", "Answer": "Jonah"},
-  {"Question": "Who led the Israelites out of Egypt?", "Answer": "Moses"},
-  {"Question": "Which disciple doubted Jesus' resurrection?", "Answer": "Thomas"},
-  {"Question": "Who wrote many of the Psalms?", "Answer": "David"},
-  {"Question": "What is the first book of the Bible?", "Answer": "Genesis"},
-  {"Question": "Who was the mother of Jesus?", "Answer": "Mary"},
-  {"Question": "Who betrayed Jesus for silver?", "Answer": "Judas"},
-  {"Question": "Which sea did Moses part?", "Answer": "RedSea"},
-  {"Question": "How many days did it rain during the flood?", "Answer": "40"},
-  {"Question": "Who interpreted Pharaoh's dreams?", "Answer": "Joseph"},
-  {"Question": "Who was thrown into the lion's den?", "Answer": "Daniel"},
-  {"Question": "Who led the Israelites into Canaan?", "Answer": "Joshua"},
-  {"Question": "Who denied Jesus three times?", "Answer": "Peter"},
-  {"Question": "Which prophet was taken up by a chariot of fire?", "Answer": "Elijah"},
-  {"Question": "Who anointed David as king?", "Answer": "Samuel"},
-  {"Question": "What did God create on the first day?", "Answer": "Light"},
-  {"Question": "Who killed Goliath?", "Answer": "David"},
-  {"Question": "Who was the first man?", "Answer": "Adam"},
-  {"Question": "Who was the first woman?", "Answer": "Eve"},
-  {"Question": "Who was the first murderer?", "Answer": "Cain"},
-  {"Question": "Where did Abraham come from?", "Answer": "Ur"},
-  {"Question": "Who was Isaac's wife?", "Answer": "Rebekah"},
-  {"Question": "Who wrestled with God and got a new name Israel?", "Answer": "Jacob"},
-  {"Question": "Who is called the weeping prophet?", "Answer": "Jeremiah"},
-  {"Question": "Who led Babylon exile and had visions?", "Answer": "Daniel"},
-  {"Question": "Who wrote the book of Revelation?", "Answer": "John"},
-  {"Question": "Which apostle wrote many letters to churches?", "Answer": "Paul"},
-  {"Question": "Who baptized Jesus?", "Answer": "JohnBaptist"},
-  {"Question": "What is the shortest verse: 'Jesus wept' — which book?", "Answer": "John"},
-  {"Question": "Who was known as 'the rock' among disciples?", "Answer": "Peter"},
-  {"Question": "What mountain did Moses receive the Ten Commandments?", "Answer": "Sinai"},
-  {"Question": "Which prophet confronted Ahab and Jezebel?", "Answer": "Elijah"},
-  {"Question": "Who was the tax collector that climbed a sycamore tree?", "Answer": "Zacchaeus"},
-  {"Question": "Which woman became queen and saved her people?", "Answer": "Esther"},
-  {"Question": "Who was known for his wisdom and wrote Proverbs?", "Answer": "Solomon"},
-  {"Question": "Who was the strong man who lost strength when his hair was cut?", "Answer": "Samson"},
-  {"Question": "Who was tortured and refused to renounce God in Babylon?", "Answer": "Daniel"},
-  {"Question": "Which prophet ate locusts and honey in the wilderness?", "Answer": "JohnBap"},
-  {"Question": "Who was Joseph's Egyptian boss who jailed him?", "Answer": "Potiphar"},
-  {"Question": "Who climbed a tree to see Jesus?", "Answer": "Zacchaeus"},
-  {"Question": "Who is the Good Shepherd?", "Answer": "Jesus"},
-  {"Question": "What river did Naaman wash in to be healed?", "Answer": "Jordan"},
-  {"Question": "Who was the beloved disciple at Jesus' side?", "Answer": "John"},
-  {"Question": "Who led worship after the exodus?", "Answer": "Miriam"},
-  {"Question": "Which king built the temple in Jerusalem?", "Answer": "Solomon"},
-  {"Question": "Who asked for wisdom from God and received riches too?", "Answer": "Solomon"},
-  {"Question": "Which book tells of Job's suffering?", "Answer": "Job"},
-  {"Question": "What food fell from heaven to feed Israelites?", "Answer": "Manna"},
-  {"Question": "What was Paul's original name?", "Answer": "Saul"},
-  {"Question": "Who wrote Ecclesiastes traditionally?", "Answer": "Solomon"},
-  {"Question": "What was the occupation of Matthew before following Jesus?", "Answer": "Taxman"}
+  {
+    "question": "Who built the ark?",
+    "choices": [
+      "A. Moses",
+      "B. Noah",
+      "C. Abraham",
+      "D. David"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Who led the Israelites out of Egypt?",
+    "choices": [
+      "A. Joseph",
+      "B. Joshua",
+      "C. Moses",
+      "D. Aaron"
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "Where was Jesus born?",
+    "choices": [
+      "A. Nazareth",
+      "B. Jerusalem",
+      "C. Bethlehem",
+      "D. Galilee"
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "Who betrayed Jesus?",
+    "choices": [
+      "A. Peter",
+      "B. John",
+      "C. Judas",
+      "D. Thomas"
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "Who was the first man?",
+    "choices": [
+      "A. Noah",
+      "B. Adam",
+      "C. Abel",
+      "D. Seth"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Who killed Goliath?",
+    "choices": [
+      "A. Saul",
+      "B. David",
+      "C. Jonathan",
+      "D. Samuel"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Who wrote Revelation?",
+    "choices": [
+      "A. Paul",
+      "B. Peter",
+      "C. John",
+      "D. Luke"
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "How many disciples did Jesus have?",
+    "choices": [
+      "A. 10",
+      "B. 11",
+      "C. 12",
+      "D. 13"
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "Who was swallowed by a big fish?",
+    "choices": [
+      "A. Jonah",
+      "B. Paul",
+      "C. Peter",
+      "D. John"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "What is the first book of the Bible?",
+    "choices": [
+      "A. Exodus",
+      "B. Genesis",
+      "C. Leviticus",
+      "D. Numbers"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Who was Abraham’s son?",
+    "choices": [
+      "A. Jacob",
+      "B. Isaac",
+      "C. Joseph",
+      "D. Esau"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Who was Joseph’s father?",
+    "choices": [
+      "A. Abraham",
+      "B. Isaac",
+      "C. Jacob",
+      "D. Judah"
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "Which prophet was thrown into a lion's den?",
+    "choices": [
+      "A. Daniel",
+      "B. Elijah",
+      "C. Jonah",
+      "D. Isaiah"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who interpreted Pharaoh’s dreams?",
+    "choices": [
+      "A. Joseph",
+      "B. Daniel",
+      "C. Moses",
+      "D. Aaron"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the mother of Samuel?",
+    "choices": [
+      "A. Hannah",
+      "B. Sarah",
+      "C. Rebekah",
+      "D. Elizabeth"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the mother of Jesus?",
+    "choices": [
+      "A. Martha",
+      "B. Mary",
+      "C. Elizabeth",
+      "D. Ruth"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Who denied Jesus three times?",
+    "choices": [
+      "A. John",
+      "B. Peter",
+      "C. James",
+      "D. Paul"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Who was the strongest man in the Bible?",
+    "choices": [
+      "A. Samson",
+      "B. David",
+      "C. Saul",
+      "D. Gideon"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Which book comes after Genesis?",
+    "choices": [
+      "A. Exodus",
+      "B. Leviticus",
+      "C. Numbers",
+      "D. Deuteronomy"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the first king of Israel?",
+    "choices": [
+      "A. Saul",
+      "B. David",
+      "C. Solomon",
+      "D. Samuel"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who built the temple in Jerusalem?",
+    "choices": [
+      "A. David",
+      "B. Solomon",
+      "C. Moses",
+      "D. Joshua"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Which disciple walked on water?",
+    "choices": [
+      "A. Peter",
+      "B. John",
+      "C. James",
+      "D. Andrew"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the tax collector called by Jesus?",
+    "choices": [
+      "A. Matthew",
+      "B. Mark",
+      "C. Luke",
+      "D. John"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Which apostle is known as the 'beloved disciple'?",
+    "choices": [
+      "A. Peter",
+      "B. John",
+      "C. James",
+      "D. Paul"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Who was thrown into the fiery furnace?",
+    "choices": [
+      "A. Shadrach, Meshach, Abednego",
+      "B. Daniel",
+      "C. Elijah",
+      "D. Moses"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the brother of Moses?",
+    "choices": [
+      "A. Aaron",
+      "B. Joshua",
+      "C. Caleb",
+      "D. Gideon"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who received the Ten Commandments?",
+    "choices": [
+      "A. Abraham",
+      "B. Moses",
+      "C. Joshua",
+      "D. David"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Which king asked for wisdom?",
+    "choices": [
+      "A. David",
+      "B. Solomon",
+      "C. Saul",
+      "D. Hezekiah"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Who led the Israelites into the Promised Land?",
+    "choices": [
+      "A. Moses",
+      "B. Joshua",
+      "C. Caleb",
+      "D. Aaron"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Who wrestled with an angel?",
+    "choices": [
+      "A. Jacob",
+      "B. Abraham",
+      "C. Isaac",
+      "D. Joseph"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was thrown into the pit by his brothers?",
+    "choices": [
+      "A. Joseph",
+      "B. Benjamin",
+      "C. Judah",
+      "D. Reuben"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Which prophet confronted King Ahab?",
+    "choices": [
+      "A. Elijah",
+      "B. Elisha",
+      "C. Isaiah",
+      "D. Jeremiah"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was known for his patience?",
+    "choices": [
+      "A. Job",
+      "B. Moses",
+      "C. David",
+      "D. Abraham"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the first woman?",
+    "choices": [
+      "A. Eve",
+      "B. Sarah",
+      "C. Mary",
+      "D. Hannah"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the mother of Samuel?",
+    "choices": [
+      "A. Hannah",
+      "B. Sarah",
+      "C. Rebekah",
+      "D. Ruth"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the first murderer?",
+    "choices": [
+      "A. Cain",
+      "B. Abel",
+      "C. Lamech",
+      "D. Esau"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who anointed David as king?",
+    "choices": [
+      "A. Samuel",
+      "B. Nathan",
+      "C. Elijah",
+      "D. Elisha"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who led Israel after Moses died?",
+    "choices": [
+      "A. Joshua",
+      "B. Caleb",
+      "C. Aaron",
+      "D. Eleazar"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the mother of John the Baptist?",
+    "choices": [
+      "A. Elizabeth",
+      "B. Mary",
+      "C. Martha",
+      "D. Hannah"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the Roman governor who sentenced Jesus?",
+    "choices": [
+      "A. Herod",
+      "B. Pilate",
+      "C. Caesar",
+      "D. Felix"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Who baptized Jesus?",
+    "choices": [
+      "A. John the Baptist",
+      "B. Peter",
+      "C. Paul",
+      "D. James"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who wrote most of the New Testament letters?",
+    "choices": [
+      "A. Paul",
+      "B. Peter",
+      "C. John",
+      "D. Luke"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Which sea did Moses part?",
+    "choices": [
+      "A. Red Sea",
+      "B. Dead Sea",
+      "C. Sea of Galilee",
+      "D. Mediterranean"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who denied Jesus and wept bitterly?",
+    "choices": [
+      "A. Peter",
+      "B. John",
+      "C. Judas",
+      "D. Thomas"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was thrown into the lions' den?",
+    "choices": [
+      "A. Daniel",
+      "B. Joseph",
+      "C. Moses",
+      "D. Elijah"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who climbed a sycamore tree to see Jesus?",
+    "choices": [
+      "A. Zacchaeus",
+      "B. Matthew",
+      "C. Nicodemus",
+      "D. Joseph"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who received manna from heaven?",
+    "choices": [
+      "A. Israelites",
+      "B. Egyptians",
+      "C. Philistines",
+      "D. Moabites"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Which river did John baptize people in?",
+    "choices": [
+      "A. Jordan",
+      "B. Nile",
+      "C. Tigris",
+      "D. Euphrates"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Which apostle was known as 'the rock'?",
+    "choices": [
+      "A. John",
+      "B. Peter",
+      "C. Paul",
+      "D. James"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Who was called the weeping prophet?",
+    "choices": [
+      "A. Jeremiah",
+      "B. Isaiah",
+      "C. Ezekiel",
+      "D. Daniel"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who anointed Jesus at Bethany with expensive perfume?",
+    "choices": [
+      "A. Mary",
+      "B. Martha",
+      "C. Salome",
+      "D. Elizabeth"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who received the Ten Commandments on Mount Sinai?",
+    "choices": [
+      "A. Moses",
+      "B. Aaron",
+      "C. Joshua",
+      "D. Samuel"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Which prophet was taken up to heaven in a whirlwind?",
+    "choices": [
+      "A. Elijah",
+      "B. Elisha",
+      "C. Isaiah",
+      "D. Jeremiah"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the first Christian martyr?",
+    "choices": [
+      "A. Stephen",
+      "B. James",
+      "C. Peter",
+      "D. John"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was known for interpreting dreams in Babylon?",
+    "choices": [
+      "A. Daniel",
+      "B. Joseph",
+      "C. Solomon",
+      "D. Samuel"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Which apostle was known as the 'twin'?",
+    "choices": [
+      "A. Thomas",
+      "B. Peter",
+      "C. John",
+      "D. Philip"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who climbed Mount Carmel to confront the prophets of Baal?",
+    "choices": [
+      "A. Elijah",
+      "B. Elisha",
+      "C. Isaiah",
+      "D. Jeremiah"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who betrayed Jesus for 30 pieces of silver?",
+    "choices": [
+      "A. Peter",
+      "B. John",
+      "C. Judas",
+      "D. Thomas"
+    ],
+    "answer": "C"
+  },
+  {
+    "question": "Which king asked God for wisdom?",
+    "choices": [
+      "A. David",
+      "B. Solomon",
+      "C. Saul",
+      "D. Hezekiah"
+    ],
+    "answer": "B"
+  },
+  {
+    "question": "Who led Israel after Moses died?",
+    "choices": [
+      "A. Joshua",
+      "B. Caleb",
+      "C. Aaron",
+      "D. Eleazar"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the woman at the well that Jesus spoke to?",
+    "choices": [
+      "A. Samaritan woman",
+      "B. Mary",
+      "C. Martha",
+      "D. Elizabeth"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who wrote the majority of Psalms?",
+    "choices": [
+      "A. David",
+      "B. Solomon",
+      "C. Moses",
+      "D. Samuel"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who denied Jesus three times before the rooster crowed?",
+    "choices": [
+      "A. Peter",
+      "B. John",
+      "C. Judas",
+      "D. Thomas"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Which sea did Moses part?",
+    "choices": [
+      "A. Red Sea",
+      "B. Dead Sea",
+      "C. Sea of Galilee",
+      "D. Mediterranean"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was known for his patience and tested by God?",
+    "choices": [
+      "A. Job",
+      "B. Abraham",
+      "C. Moses",
+      "D. David"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the last judge of Israel?",
+    "choices": [
+      "A. Samuel",
+      "B. Deborah",
+      "C. Gideon",
+      "D. Eli"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the father of John the Baptist?",
+    "choices": [
+      "A. Zechariah",
+      "B. Joseph",
+      "C. Abraham",
+      "D. Jacob"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Which prophet was swallowed by a great fish?",
+    "choices": [
+      "A. Jonah",
+      "B. Daniel",
+      "C. Elijah",
+      "D. Isaiah"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was thrown into a fiery furnace but survived?",
+    "choices": [
+      "A. Shadrach, Meshach, Abednego",
+      "B. Daniel",
+      "C. Elijah",
+      "D. Jonah"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who anointed David as king?",
+    "choices": [
+      "A. Samuel",
+      "B. Nathan",
+      "C. Elijah",
+      "D. Elisha"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the mother of Samuel?",
+    "choices": [
+      "A. Hannah",
+      "B. Sarah",
+      "C. Rebekah",
+      "D. Rachel"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the disciple that doubted Jesus' resurrection until he saw Him?",
+    "choices": [
+      "A. Thomas",
+      "B. Peter",
+      "C. John",
+      "D. James"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who wrote the Gospel of Luke?",
+    "choices": [
+      "A. Luke",
+      "B. Matthew",
+      "C. John",
+      "D. Mark"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Which apostle was known as the 'rock'?",
+    "choices": [
+      "A. Peter",
+      "B. John",
+      "C. Paul",
+      "D. James"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was thrown into the lions’ den?",
+    "choices": [
+      "A. Daniel",
+      "B. Joseph",
+      "C. Moses",
+      "D. Elijah"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who anointed Jesus at Bethany with expensive perfume?",
+    "choices": [
+      "A. Mary",
+      "B. Martha",
+      "C. Salome",
+      "D. Elizabeth"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was Saul’s successor as king?",
+    "choices": [
+      "A. David",
+      "B. Solomon",
+      "C. Samuel",
+      "D. Jonathan"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the first king of Israel?",
+    "choices": [
+      "A. Saul",
+      "B. David",
+      "C. Solomon",
+      "D. Samuel"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who parted the Red Sea?",
+    "choices": [
+      "A. Moses",
+      "B. Joshua",
+      "C. Aaron",
+      "D. Caleb"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who received a coat of many colors?",
+    "choices": [
+      "A. Joseph",
+      "B. Benjamin",
+      "C. Judah",
+      "D. Reuben"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was thrown into prison in Egypt but interpreted dreams?",
+    "choices": [
+      "A. Joseph",
+      "B. Daniel",
+      "C. Moses",
+      "D. Aaron"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the wife of Abraham?",
+    "choices": [
+      "A. Sarah",
+      "B. Rebekah",
+      "C. Rachel",
+      "D. Leah"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the brother of Moses?",
+    "choices": [
+      "A. Aaron",
+      "B. Joshua",
+      "C. Caleb",
+      "D. Eleazar"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Which judge defeated the Midianites with only 300 men?",
+    "choices": [
+      "A. Gideon",
+      "B. Samson",
+      "C. Jephthah",
+      "D. Deborah"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Which prophet succeeded Elijah?",
+    "choices": [
+      "A. Elisha",
+      "B. Isaiah",
+      "C. Jeremiah",
+      "D. Ezekiel"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the Ethiopian eunuch converted by Philip?",
+    "choices": [
+      "A. Ethiopian official",
+      "B. Cornelius",
+      "C. Saul",
+      "D. Sergius"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the first martyr of the Christian church?",
+    "choices": [
+      "A. Stephen",
+      "B. James",
+      "C. Peter",
+      "D. Paul"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who wrote the Book of Acts?",
+    "choices": [
+      "A. Luke",
+      "B. Matthew",
+      "C. John",
+      "D. Paul"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Which apostle wrote letters to seven churches in Asia?",
+    "choices": [
+      "A. John",
+      "B. Paul",
+      "C. Peter",
+      "D. James"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was known as the weeping prophet?",
+    "choices": [
+      "A. Jeremiah",
+      "B. Isaiah",
+      "C. Ezekiel",
+      "D. Daniel"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was called the 'beloved disciple'?",
+    "choices": [
+      "A. John",
+      "B. Peter",
+      "C. James",
+      "D. Paul"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was thrown into a pit by his brothers?",
+    "choices": [
+      "A. Joseph",
+      "B. Benjamin",
+      "C. Judah",
+      "D. Reuben"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who baptized Jesus?",
+    "choices": [
+      "A. John the Baptist",
+      "B. Peter",
+      "C. Paul",
+      "D. James"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was a tax collector called by Jesus?",
+    "choices": [
+      "A. Matthew",
+      "B. Mark",
+      "C. Luke",
+      "D. John"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Which king built the temple in Jerusalem?",
+    "choices": [
+      "A. Solomon",
+      "B. David",
+      "C. Saul",
+      "D. Hezekiah"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the mother of Jesus?",
+    "choices": [
+      "A. Mary",
+      "B. Martha",
+      "C. Elizabeth",
+      "D. Ruth"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who received a vision of a valley of dry bones?",
+    "choices": [
+      "A. Ezekiel",
+      "B. Isaiah",
+      "C. Jeremiah",
+      "D. Daniel"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Which book contains the Beatitudes?",
+    "choices": [
+      "A. Matthew",
+      "B. Mark",
+      "C. Luke",
+      "D. John"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who denied Jesus three times before the rooster crowed?",
+    "choices": [
+      "A. Peter",
+      "B. John",
+      "C. Judas",
+      "D. Thomas"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was known for his great strength and long hair?",
+    "choices": [
+      "A. Samson",
+      "B. David",
+      "C. Saul",
+      "D. Joshua"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who wrote most of the New Testament letters?",
+    "choices": [
+      "A. Paul",
+      "B. Peter",
+      "C. John",
+      "D. Luke"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Which river did John baptize in?",
+    "choices": [
+      "A. Jordan",
+      "B. Nile",
+      "C. Euphrates",
+      "D. Tigris"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was the first murderer in the Bible?",
+    "choices": [
+      "A. Cain",
+      "B. Abel",
+      "C. Lamech",
+      "D. Esau"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was swallowed by a great fish?",
+    "choices": [
+      "A. Jonah",
+      "B. Daniel",
+      "C. Elijah",
+      "D. Isaiah"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was thrown into the fiery furnace but survived?",
+    "choices": [
+      "A. Shadrach, Meshach, Abednego",
+      "B. Daniel",
+      "C. Elijah",
+      "D. Jonah"
+    ],
+    "answer": "A"
+  },
+  {
+    "question": "Who was anointed king while still a shepherd?",
+    "choices": [
+      "A. David",
+      "B. Solomon",
+      "C. Saul",
+      "D. Samuel"
+    ],
+    "answer": "A"
+  }
 ]
