@@ -1,5 +1,10 @@
-# main.py
+# Tensura-bot — main.py (2 ပိုင်း)
 
+---
+
+# Part 1/2
+
+```python
 import os
 import json
 import random
@@ -15,12 +20,10 @@ import config
 from reminder import start_scheduler
 from games import get_random_quiz, check_answer
 
-
 # ----------------------
 # Load ENV
 # ----------------------
 load_dotenv()
-
 
 # ----------------------
 # Logging
@@ -32,68 +35,53 @@ logging.basicConfig(
 
 logger = logging.getLogger(__name__)
 
-
 # ----------------------
 # Ensure folders/files
 # ----------------------
 def ensure_paths():
-
     Path("data").mkdir(exist_ok=True)
     Path(config.MEDIA_PDFS).mkdir(parents=True, exist_ok=True)
     Path(config.MEDIA_AUDIO).mkdir(parents=True, exist_ok=True)
     Path(config.MEDIA_IMAGES).mkdir(parents=True, exist_ok=True)
 
     def ensure_file(path, default):
-
         p = Path(path)
-
         if not p.exists():
-            p.write_text(
-                json.dumps(default, ensure_ascii=False, indent=2),
-                encoding="utf-8"
-            )
+            p.write_text(json.dumps(default, ensure_ascii=False, indent=2), encoding="utf-8")
 
     ensure_file(config.USERS_FILE, {})
     ensure_file(config.QUIZZES_FILE, [])
     ensure_file(config.EVENTS_FILE, [])
     ensure_file(config.VERSES_FILE, [])
 
-
 ensure_paths()
-
 
 # ----------------------
 # JSON Helpers
 # ----------------------
-def load_json(path, default):
 
+def load_json(path, default):
     try:
         with open(path, "r", encoding="utf-8") as f:
             return json.load(f)
-
     except Exception as e:
-
         logger.warning("Failed to load %s: %s", path, e)
         return default
 
 
 def save_json(path, data):
-
     with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
-
 
 # ----------------------
 # User Management
 # ----------------------
+
 def add_user_if_missing(user_id, username=None, full_name=None):
-
     users = load_json(config.USERS_FILE, {})
-
     uid = str(user_id)
 
     if uid not in users:
-
         users[uid] = {
             "prayer_requests": [],
             "language": "en",
@@ -101,10 +89,7 @@ def add_user_if_missing(user_id, username=None, full_name=None):
             "username": username,
             "full_name": full_name
         }
-
     else:
-
-        # Update name if changed
         users[uid]["username"] = username
         users[uid]["full_name"] = full_name
 
@@ -112,42 +97,24 @@ def add_user_if_missing(user_id, username=None, full_name=None):
 
 
 def get_all_user_ids():
-
     users = load_json(config.USERS_FILE, {})
-
     return [int(uid) for uid in users.keys()]
 
 
 def is_admin(user_id):
-
     return user_id in (config.ADMIN_IDS or [])
-
 
 # ----------------------
 # Commands
 # ----------------------
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
     user = update.effective_user
-
-    add_user_if_missing(
-        user.id,
-        user.username,
-        f"{user.first_name or ''} {user.last_name or ''}".strip()
+    add_user_if_missing(user.id, user.username, f"{user.first_name or ''} {user.last_name or ''}".strip())
+    await update.message.reply_text(
+        "🙌 Welcome, dear friend!\nHere you’ll find encouragement, Bible verses, and fellowship.\nLet God lead you every step of the way.\nType /cmd to begin."
     )
 
-    await update.message.reply_text(
-    "🙌 Welcome, dear friend!\n"
-    "Here you’ll find encouragement, Bible verses, and fellowship.\n"
-    "Let God lead you every step of the way.\n"
-    "Type /cmd to begin."
-)
-
-
-
-
 async def cmd_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
     text = (
         "/start - Register\n"
         "/cmd - All command\n"
@@ -160,116 +127,62 @@ async def cmd_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "/daily_inspiration - Motivation\n"
         "/broadcast <text> - Admin\n"
     )
-
     await update.message.reply_text(text)
 
-
-# ----------------------
-# Verse
-# ----------------------
 async def verse(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
     verses = load_json(config.VERSES_FILE, [])
-
     if not verses:
         await update.message.reply_text("No verses available.")
         return
+    await update.message.reply_text(f"📖 {random.choice(verses)}")
 
-    await update.message.reply_text(
-        f"📖 {random.choice(verses)}"
-    )
-
-
-# ----------------------
-# Prayer
-# ----------------------
 async def prayer(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
     user = update.effective_user
-
-    add_user_if_missing(
-        user.id,
-        user.username,
-        f"{user.first_name or ''} {user.last_name or ''}".strip()
-    )
-
+    add_user_if_missing(user.id, user.username, f"{user.first_name or ''} {user.last_name or ''}".strip())
     if not context.args:
-        await update.message.reply_text(
-            "Usage: /prayer <your request>"
-        )
+        await update.message.reply_text("Usage: /prayer <your request>")
         return
-
     users = load_json(config.USERS_FILE, {})
-
     uid = str(user.id)
-
     text = " ".join(context.args)
-
-    users[uid]["prayer_requests"].append({
-        "text": text,
-        "time": datetime.now().isoformat()
-    })
-
+    users[uid]["prayer_requests"].append({"text": text, "time": datetime.now().isoformat()})
     save_json(config.USERS_FILE, users)
-
     await update.message.reply_text("Saved.")
 
-
-# ----------------------
-# Events
-# ----------------------
 async def events_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
     events = load_json(config.EVENTS_FILE, [])
-
     if not events:
         await update.message.reply_text("No events.")
         return
-
     msg = ["🗓 Events:\n"]
-
     for e in events:
-        msg.append(
-            f"{e.get('name')} — {e.get('time')}"
-        )
-
+        msg.append(f"{e.get('name')} — {e.get('time')}")
     await update.message.reply_text("\n".join(msg))
 
-
-# ----------------------
-# Quiz
-# ----------------------
 async def quiz_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
     quizzes = load_json(config.QUIZZES_FILE, [])
-
     if not quizzes:
         await update.message.reply_text("No quiz available.")
         return
-
     q = random.choice(quizzes)
-
     context.user_data["quiz_answer"] = q["answer"]
-
     text = f"❓ {q['question']}\n\n"
-
     for c in q["choices"]:
         text += c + "\n"
-
     text += "\nReply with: /answer A / B / C / D"
-
     await update.message.reply_text(text)
+```
 
+---
 
-# ----------------------
-# Answer
-# ----------------------
+# Part 2/2
+
+```python
 async def answer_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = str(update.effective_user.id)
-    add_user_if_missing(update.effective_user.id)  # Ensure user exists
-
+    add_user_if_missing(update.effective_user.id)
     users = load_json(config.USERS_FILE, {})
-    
+
     if "quiz_answer" not in context.user_data:
         await update.message.reply_text("Start a quiz first with /quiz")
         return
@@ -281,7 +194,6 @@ async def answer_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     correct = context.user_data.get("quiz_answer")
 
     if check_answer(user_answer, correct):
-        # Initialize quiz_score if not present
         users[user_id].setdefault("quiz_score", 0)
         users[user_id]["quiz_score"] += 1
         save_json(config.USERS_FILE, users)
@@ -289,178 +201,103 @@ async def answer_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     else:
         await update.message.reply_text(f"❌ Wrong. Correct: {correct}")
 
-
-# ----------------------
-# Ranking
-# ----------------------
 async def tops_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
     users = load_json(config.USERS_FILE, {})
-
     if not users:
         await update.message.reply_text("No data.")
         return
 
     ranking = []
-
     for uid, data in users.items():
-
         score = data.get("quiz_score", 0)
-
-        name = (
-            f"@{data['username']}"
-            if data.get("username")
-            else data.get("full_name", "Unknown")
-        )
-
+        name = f"@{data['username']}" if data.get("username") else data.get("full_name", "Unknown")
         ranking.append((name, score))
 
-    ranking.sort(
-        key=lambda x: x[1],
-        reverse=True
-    )
-
+    ranking.sort(key=lambda x: x[1], reverse=True)
     text = "🏆 TOP QUIZ PLAYERS\n\n"
-
     for i, (name, score) in enumerate(ranking[:10], 1):
         text += f"{i}. {name} — {score} pts\n"
 
     await update.message.reply_text(text)
 
-
-# ----------------------
-# Inspiration
-# ----------------------
 async def daily_inspiration(update: Update, context: ContextTypes.DEFAULT_TYPE):
-
     msgs = [
-    "📖 “The Lord is my shepherd; I shall not want.” (Psalm 23:1)\nTrust Him to guide you today. 🙏",
-
-    "✨ “I can do all things through Christ who strengthens me.” (Philippians 4:13)\nYou are stronger than you think. 💪",
-
-    "🕊️ “Peace I leave with you; My peace I give you.” (John 14:27)\nLet God’s peace fill your heart today. 💙",
-
-    "🌟 “For I know the plans I have for you,” declares the Lord. (Jeremiah 29:11)\nYour future is in His hands. 🙌",
-
-    "💖 “Love is patient, love is kind.” (1 Corinthians 13:4)\nChoose love in every situation today.",
-
-    "🔥 “The Lord is my light and my salvation—whom shall I fear?” (Psalm 27:1)\nWalk boldly in faith today.",
-
-    "🌈 “Those who hope in the Lord will renew their strength.” (Isaiah 40:31)\nWait on Him and be renewed. ✨",
-
-    "🙏 “Ask and it will be given to you; seek and you will find.” (Matthew 7:7)\nNever stop praying.",
-
-    "💎 “Be strong and courageous… for the Lord your God is with you.” (Joshua 1:9)\nYou are never alone.",
-
-    "📜 “Give thanks in all circumstances.” (1 Thessalonians 5:18)\nA thankful heart brings joy. 😊"
-]
-
-
-    await update.message.reply_text(
-        random.choice(msgs)
-    )
-
+        "📖 “The Lord is my shepherd; I shall not want.” (Psalm 23:1)\nTrust Him to guide you today. 🙏",
+        "✨ “I can do all things through Christ who strengthens me.” (Philippians 4:13)\nYou are stronger than you think. 💪",
+        "🕊️ “Peace I leave with you; My peace I give you.” (John 14:27)\nLet God’s peace fill your heart today. 💙",
+        "🌟 “For I know the plans I have for you,” declares the Lord. (Jeremiah 29:11)\nYour future is in His hands. 🙌",
+        "💖 “Love is patient, love is kind.” (1 Corinthians 13:4)\nChoose love in every situation today.",
+        "🔥 “The Lord is my light and my salvation—whom shall I fear?” (Psalm 27:1)\nWalk boldly in faith today.",
+        "🌈 “Those who hope in the Lord will renew their strength.” (Isaiah 40:31)\nWait on Him and be renewed. ✨",
+        "🙏 “Ask and it will be given to you; seek and you will find.” (Matthew 7:7)\nNever stop praying.",
+        "💎 “Be strong and courageous… for the Lord your God is with you.” (Joshua 1:9)\nYou are never alone.",
+        "📜 “Give thanks in all circumstances.” (1 Thessalonians 5:18)\nA thankful heart brings joy. 😊"
+    ]
+    await update.message.reply_text(random.choice(msgs))
 
 # ----------------------
-# Media (Admin)
+# Media Admin
 # ----------------------
 async def send_pdf(update, context):
-
     if not is_admin(update.effective_user.id):
         await update.message.reply_text("❌ No access")
         return
-
     if not context.args:
         await update.message.reply_text("Usage: /send_pdf <file>")
         return
-
-    path = os.path.join(
-        config.MEDIA_PDFS,
-        context.args[0]
-    )
-
+    path = os.path.join(config.MEDIA_PDFS, context.args[0])
     if not os.path.exists(path):
         await update.message.reply_text("Not found.")
         return
-
     with open(path, "rb") as f:
         await update.message.reply_document(f)
 
-
 async def send_audio(update, context):
-
     if not is_admin(update.effective_user.id):
         await update.message.reply_text("❌ No access")
         return
-
     if not context.args:
         await update.message.reply_text("Usage: /send_audio <file>")
         return
-
-    path = os.path.join(
-        config.MEDIA_AUDIO,
-        context.args[0]
-    )
-
+    path = os.path.join(config.MEDIA_AUDIO, context.args[0])
     if not os.path.exists(path):
         await update.message.reply_text("Not found.")
         return
-
     with open(path, "rb") as f:
         await update.message.reply_audio(f)
 
-
 async def send_image(update, context):
-
     if not is_admin(update.effective_user.id):
         await update.message.reply_text("❌ No access")
         return
-
     if not context.args:
         await update.message.reply_text("Usage: /send_image <file>")
         return
-
-    path = os.path.join(
-        config.MEDIA_IMAGES,
-        context.args[0]
-    )
-
+    path = os.path.join(config.MEDIA_IMAGES, context.args[0])
     if not os.path.exists(path):
         await update.message.reply_text("Not found.")
         return
-
     with open(path, "rb") as f:
         await update.message.reply_photo(f)
-
 
 # ----------------------
 # Error Handler
 # ----------------------
 async def error_handler(update, context):
-
     logger.exception(context.error)
-
     for aid in (config.ADMIN_IDS or []):
-
         try:
-            await context.bot.send_message(
-                chat_id=aid,
-                text=f"Error: {context.error}"
-            )
-        except:
+            await context.bot.send_message(chat_id=aid, text=f"Error: {context.error}")
+        except Exception:
             pass
-
 
 # ----------------------
 # Main
 # ----------------------
+
 def main():
+    app = ApplicationBuilder().token(config.BOT_TOKEN).build()
 
-    app = ApplicationBuilder() \
-        .token(config.BOT_TOKEN) \
-        .build()
-
-    # Commands
     app.add_handler(CommandHandler("start", start))
     app.add_handler(CommandHandler("cmd", cmd_command))
     app.add_handler(CommandHandler("verse", verse))
@@ -478,14 +315,9 @@ def main():
     # Broadcast
     try:
         import importlib
-
         b = importlib.import_module("broadcast")
-
         if hasattr(b, "broadcast_command"):
-            app.add_handler(
-                CommandHandler("broadcast", b.broadcast_command)
-            )
-
+            app.add_handler(CommandHandler("broadcast", b.broadcast_command))
     except Exception as e:
         logger.warning("Broadcast not loaded: %s", e)
 
@@ -498,9 +330,7 @@ def main():
         logger.error("Scheduler error: %s", e)
 
     logger.info("Bot Running...")
-
     app.run_polling()
-
 
 if __name__ == "__main__":
     main()
