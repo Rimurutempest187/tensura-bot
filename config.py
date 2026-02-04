@@ -1,23 +1,47 @@
 import os
+from dotenv import load_dotenv
 
-BOT_TOKEN = os.getenv("BOT_TOKEN")
+# Load env first
+load_dotenv()
 
-_admins = os.getenv("ADMIN_IDS", "")
-if _admins.strip():
+# ------------------
+# BOT TOKEN
+# ------------------
+BOT_TOKEN = os.getenv("BOT_TOKEN", "").strip()
+
+if not BOT_TOKEN:
+    raise ValueError("❌ BOT_TOKEN not found in .env")
+
+# ------------------
+# ADMINS
+# ------------------
+ADMIN_IDS = []
+
+admins = os.getenv("ADMIN_IDS", "")
+
+if admins:
     try:
-        ADMIN_IDS = [int(x) for x in _admins.split(",") if x.strip()]
-    except Exception:
+        ADMIN_IDS = [int(x.strip()) for x in admins.split(",")]
+    except:
         ADMIN_IDS = []
-else:
-    ADMIN_IDS = []
 
-# Media folders
-MEDIA_PDFS = "media/pdfs"
-MEDIA_AUDIO = "media/audio"
-MEDIA_IMAGES = "media/images"
+# ------------------
+# PATHS
+# ------------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Data files
-USERS_FILE = "data/users.json"
-QUIZZES_FILE = "data/quizzes.json"
-EVENTS_FILE = "data/events.json"
-VERSES_FILE = "data/verses.json"
+DATA_DIR = os.path.join(BASE_DIR, "data")
+
+MEDIA_DIR = os.path.join(BASE_DIR, "media")
+
+MEDIA_PDFS = os.path.join(MEDIA_DIR, "pdfs")
+MEDIA_AUDIO = os.path.join(MEDIA_DIR, "audio")
+MEDIA_IMAGES = os.path.join(MEDIA_DIR, "images")
+
+# ------------------
+# FILES
+# ------------------
+USERS_FILE = os.path.join(DATA_DIR, "users.json")
+QUIZZES_FILE = os.path.join(DATA_DIR, "quizzes.json")
+EVENTS_FILE = os.path.join(DATA_DIR, "events.json")
+VERSES_FILE = os.path.join(DATA_DIR, "verses.json")
