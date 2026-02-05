@@ -45,3 +45,5 @@ USERS_FILE = os.path.join(DATA_DIR, "users.json")
 QUIZZES_FILE = os.path.join(DATA_DIR, "quizzes.json")
 EVENTS_FILE = os.path.join(DATA_DIR, "events.json")
 VERSES_FILE = os.path.join(DATA_DIR, "verses.json")
+
+GROUP_IDS = [-1003531064341,-0]
