@@ -45,6 +45,7 @@ def main():
     app.add_handler(CommandHandler("daily_inspiration", user_handlers.daily))
     app.add_handler(CommandHandler("myid", user_handlers.myid))
     app.add_handler(CommandHandler("chatid", user_handlers.chatid))
+    app.add_handler(CommandHandler("tran", user_handlers.tran))
 
     # Quiz (uses inline buttons)
     app.add_handler(CommandHandler("quiz", quiz_handlers.quiz))
