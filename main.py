@@ -1,20 +1,34 @@
+# main.py
 import logging
+from pathlib import Path
+
+from dotenv import load_dotenv
 from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler
+from telegram.ext import (
+    ApplicationBuilder,
+    CommandHandler,
+    CallbackQueryHandler,
+    ContextTypes,
+)
+
 import config
+from utils.json_utils import init_data_files
+from handlers import user_handlers, quiz_handlers, admin_handlers, broadcast_handlers
+from utils.bot_utils import error_handler as bot_error_handler
+from handlers import quiz_handlers, admin_handlers, broadcast_handlers, user_handlers
 
-from handlers.quiz import quiz, button
-from handlers.admin import addadmin, listadmins, deladmin
-from handlers.broadcast import broadcast_cmd, broadcast_users_cmd
-from handlers.user import start, cmd, verse, prayer, events, tops, daily, myid, chatid
-from utils.logging_utils import setup_logging
+load_dotenv()
 
-logger = setup_logging()
+logging.basicConfig(
+    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
+    level=logging.INFO
+)
+logger = logging.getLogger("ChurchBot")
 
-async def error_handler(update, context):
-    logger.error("Exception while handling an update:", exc_info=context.error)
-    if update and update.effective_message:
-        await update.effective_message.reply_text("⚠️ Something went wrong. Please try again later.")
+# Ensure data folders & files
+DATA_DIR = getattr(config, "DATA_DIR", "data")
+Path(DATA_DIR).mkdir(exist_ok=True)
+init_data_files(DATA_DIR)
 
 def main():
     if not getattr(config, "BOT_TOKEN", None):
@@ -22,31 +36,32 @@ def main():
 
     app = ApplicationBuilder().token(config.BOT_TOKEN).build()
 
-    # user commands
-    app.add_handler(CommandHandler("start", start))
-    app.add_handler(CommandHandler("cmd", cmd))
-    app.add_handler(CommandHandler("verse", verse))
-    app.add_handler(CommandHandler("prayer", prayer))
-    app.add_handler(CommandHandler("events", events))
-    app.add_handler(CommandHandler("tops", tops))
-    app.add_handler(CommandHandler("daily_inspiration", daily))
-    app.add_handler(CommandHandler("myid", myid))
-    app.add_handler(CommandHandler("chatid", chatid))
+    # Basic user commands
+    app.add_handler(CommandHandler("start", user_handlers.start))
+    app.add_handler(CommandHandler("cmd", user_handlers.cmd))
+    app.add_handler(CommandHandler("verse", user_handlers.verse))
+    app.add_handler(CommandHandler("prayer", user_handlers.prayer))
+    app.add_handler(CommandHandler("events", user_handlers.events))
+    app.add_handler(CommandHandler("tops", user_handlers.tops))
+    app.add_handler(CommandHandler("daily_inspiration", user_handlers.daily))
+    app.add_handler(CommandHandler("myid", user_handlers.myid))
+    app.add_handler(CommandHandler("chatid", user_handlers.chatid))
 
-    # quiz
-    app.add_handler(CommandHandler("quiz", quiz))
-    app.add_handler(CallbackQueryHandler(button))
+    # Quiz (uses inline buttons)
+    app.add_handler(CommandHandler("quiz", quiz_handlers.quiz))
+    app.add_handler(CallbackQueryHandler(quiz_handlers.quiz_button))
 
-    # admin
-    app.add_handler(CommandHandler("addadmin", addadmin))
-    app.add_handler(CommandHandler("listadmins", listadmins))
-    app.add_handler(CommandHandler("deladmin", deladmin))
+    # Admin
+    app.add_handler(CommandHandler("addadmin", admin_handlers.addadmin))
+    app.add_handler(CommandHandler("listadmins", admin_handlers.listadmins))
+    app.add_handler(CommandHandler("deladmin", admin_handlers.deladmin))
 
-    # broadcast
-    app.add_handler(CommandHandler("broadcast", broadcast_cmd))
-    app.add_handler(CommandHandler("broadcast_users", broadcast_users_cmd))
+    # Broadcast
+    app.add_handler(CommandHandler("broadcast", broadcast_handlers.broadcast_cmd))
+    app.add_handler(CommandHandler("broadcast_users", broadcast_handlers.broadcast_users_cmd))
 
-    app.add_error_handler(error_handler)
+    # Centralized error handler
+    app.add_error_handler(bot_error_handler)
 
     logger.info("✅ BOT STARTED")
     app.run_polling(drop_pending_updates=True, allowed_updates=Update.ALL_TYPES)
