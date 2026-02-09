@@ -12,11 +12,10 @@ try:
     from telegram.request import Request  # python-telegram-bot v20+
 except Exception:
     try:
-        from telegram.utils.request import Request  # older layouts (rare)
+        from telegram.utils.request import Request  # fallback (rare)
     except Exception:
         Request = None
 
-# Basic telegram imports
 from telegram import Update
 from telegram.error import NetworkError
 from telegram.ext import (
@@ -38,17 +37,15 @@ logging.basicConfig(
 )
 logger = logging.getLogger("ChurchBot")
 
-# Detect likely conflicting 'telegram' package early and warn
+# Early detection of conflicting 'telegram' package
 try:
     import telegram as _tg_pkg
     if not hasattr(_tg_pkg, "ext"):
-        logger.error(
-            "Detected a conflicting 'telegram' package that is not python-telegram-bot. "
-            "This will likely cause import errors. Please ensure 'python-telegram-bot==20.7' is installed "
-            "and uninstall any package named 'telegram'."
+        logger.warning(
+            "A conflicting 'telegram' package (not python-telegram-bot) may be installed. "
+            "If you see import errors, uninstall 'telegram' and install 'python-telegram-bot==20.7'."
         )
 except Exception:
-    # ignore if import fails here; later imports will show errors
     pass
 
 # Ensure data folders & files
@@ -63,7 +60,7 @@ def build_request_from_env():
     Supports TELEGRAM_PROXY or standard HTTP(S)_PROXY env vars.
     """
     if Request is None:
-        logger.warning("telegram.request.Request not available; using default request settings.")
+        logger.info("telegram.request.Request not available; using default request settings.")
         return None
 
     proxy = os.getenv("TELEGRAM_PROXY") or os.getenv("HTTPS_PROXY") or os.getenv("HTTP_PROXY")
@@ -117,7 +114,6 @@ def main():
     if request is not None:
         app = ApplicationBuilder().token(config.BOT_TOKEN).request(request).build()
     else:
-        # fallback to default request behavior
         app = ApplicationBuilder().token(config.BOT_TOKEN).build()
 
     register_handlers(app)
