@@ -37,7 +37,7 @@ async def cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "✝️ Welcome to Church Community Bot ✝️\n\n"
+        "✝️ Welcome to Church Community ✝️\n\n"
         "Here you will find:\n"
         "✨ Daily inspiration\n"
         "📖 Bible verses\n"
