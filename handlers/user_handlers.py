@@ -5,6 +5,9 @@ from telegram.ext import ContextTypes
 from utils.translate_utils import translate_auto
 
 logger = logging.getLogger(__name__)
+# handlers/user_handlers.py (example)
+async def cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("Available commands: /start /tran /quiz ...")
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("Welcome. Use /tran <text> or reply to a message with /tran")
