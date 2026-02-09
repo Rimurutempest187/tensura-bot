@@ -147,9 +147,9 @@ async def chatid(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 
-async def tran(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def auto_translate(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not context.args:
-        await update.message.reply_text("Usage: /tran <text>")
+        await update.message.reply_text("Usage: /auto_translate <text>")
         return
     
     text = " ".join(context.args)
