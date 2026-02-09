@@ -1,14 +1,18 @@
 # main.py
 import logging
+import os
+import sys
+import time
 from pathlib import Path
-
 from dotenv import load_dotenv
+
 from telegram import Update
+from telegram.error import NetworkError
+from telegram.request import Request
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
     CallbackQueryHandler,
-    ContextTypes,
 )
 
 import config
@@ -29,12 +33,27 @@ DATA_DIR = getattr(config, "DATA_DIR", "data")
 Path(DATA_DIR).mkdir(exist_ok=True)
 init_data_files(DATA_DIR)
 
-def main():
-    if not getattr(config, "BOT_TOKEN", None):
-        raise SystemExit("BOT_TOKEN missing in config.py")
+def build_request_from_env() -> Request:
+    """
+    Build a telegram Request object using sensible timeouts and optional proxy from env.
+    Environment variables supported:
+      - TELEGRAM_PROXY (http://user:pass@host:port)
+      - HTTP_PROXY / HTTPS_PROXY (standard)
+    """
+    proxy = os.getenv("TELEGRAM_PROXY") or os.getenv("HTTPS_PROXY") or os.getenv("HTTP_PROXY")
+    # tune timeouts and connection pool for reliability
+    request_kwargs = {
+        "connect_timeout": 10,
+        "read_timeout": 20,
+        "write_timeout": 20,
+        "con_pool_size": 8,
+    }
+    if proxy:
+        request_kwargs["proxy_url"] = proxy
+        logger.info("Using proxy for Telegram requests: %s", proxy)
+    return Request(**request_kwargs)
 
-    app = ApplicationBuilder().token(config.BOT_TOKEN).build()
-
+def register_handlers(app):
     # Basic user commands
     app.add_handler(CommandHandler("start", user_handlers.start))
     app.add_handler(CommandHandler("cmd", user_handlers.cmd))
@@ -63,8 +82,40 @@ def main():
     # Centralized error handler
     app.add_error_handler(bot_error_handler)
 
-    logger.info("✅ BOT STARTED")
-    app.run_polling(drop_pending_updates=True, allowed_updates=Update.ALL_TYPES)
+def main():
+    if not getattr(config, "BOT_TOKEN", None):
+        raise SystemExit("BOT_TOKEN missing in config.py")
+
+    request = build_request_from_env()
+    app = ApplicationBuilder().token(config.BOT_TOKEN).request(request).build()
+
+    register_handlers(app)
+
+    max_retries = int(os.getenv("BOT_START_RETRIES", "5"))
+    backoff_base = int(os.getenv("BOT_BACKOFF_SECONDS", "5"))
+    attempt = 0
+
+    while True:
+        try:
+            logger.info("Starting bot (attempt %d)", attempt + 1)
+            # run_polling will block until stopped or an exception occurs
+            app.run_polling(drop_pending_updates=True, allowed_updates=Update.ALL_TYPES)
+            # If run_polling returns normally, exit loop
+            logger.info("Bot stopped normally.")
+            break
+        except NetworkError as e:
+            attempt += 1
+            logger.exception("NetworkError while starting/running bot: %s", e)
+            if attempt >= max_retries:
+                logger.error("Exceeded max start retries (%d). Exiting.", max_retries)
+                sys.exit(1)
+            sleep_for = backoff_base * attempt
+            logger.info("Retrying in %s seconds...", sleep_for)
+            time.sleep(sleep_for)
+        except Exception as e:
+            # Unexpected exception: log and exit (or you can choose to retry)
+            logger.exception("Unexpected error: %s", e)
+            sys.exit(1)
 
 if __name__ == "__main__":
     main()
