@@ -27,7 +27,18 @@ def _save_json(path, data):
 
 # --- User Commands ---
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("✝️ Welcome to Church Community Bot ✝️\n\n👉 Type /cmd to see commands.")
+    text = (
+        "✝️ Welcome to Church Community Bot ✝️\n\n"
+        "Here you will find:\n"
+        "✨ Daily inspiration\n"
+        "📖 Bible verses\n"
+        "🤲 Prayers\n"
+        "📅 Church events\n"
+        "🎯 Quizzes and uplifting activities\n\n"
+        "This bot is here to help us grow closer to God and to one another in fellowship.\n\n"
+        "👉 Type /cmd to see the full list of commands.\n\n"
+        )
+    await update.message.reply_text(text)
 
 async def cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text(
