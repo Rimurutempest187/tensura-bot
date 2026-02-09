@@ -37,17 +37,6 @@ logging.basicConfig(
 )
 logger = logging.getLogger("ChurchBot")
 
-# Warn early if a conflicting 'telegram' package is present
-try:
-    import telegram as _tg_pkg
-    if not hasattr(_tg_pkg, "ext"):
-        logger.warning(
-            "A package named 'telegram' is installed but does not look like python-telegram-bot. "
-            "This may cause import errors. Ensure python-telegram-bot==20.x is installed and no conflicting 'telegram' package exists."
-        )
-except Exception:
-    pass
-
 # Ensure data folders & files
 DATA_DIR = getattr(config, "DATA_DIR", "data")
 Path(DATA_DIR).mkdir(parents=True, exist_ok=True)
@@ -55,10 +44,6 @@ init_data_files(DATA_DIR)
 
 
 def build_request_from_env():
-    """
-    Build a Request object if available. If Request is not importable, return None.
-    Supports TELEGRAM_PROXY or standard HTTP(S)_PROXY env vars.
-    """
     if Request is None:
         logger.debug("telegram.request.Request not available; using default request settings.")
         return None
@@ -76,31 +61,57 @@ def build_request_from_env():
     return Request(**request_kwargs)
 
 
+def safe_add_command(app, command_name: str, handler_module, handler_attr: str):
+    """
+    Add a CommandHandler only if the handler exists in the module.
+    Logs a warning if missing.
+    """
+    if hasattr(handler_module, handler_attr):
+        handler_func = getattr(handler_module, handler_attr)
+        app.add_handler(CommandHandler(command_name, handler_func))
+        logger.debug("Registered /%s -> %s.%s", command_name, handler_module.__name__, handler_attr)
+    else:
+        logger.warning("Handler missing: %s.%s not found. Skipping /%s registration.",
+                       handler_module.__name__, handler_attr, command_name)
+
+
+def safe_add_callback(app, handler_module, handler_attr: str, callback_class):
+    """
+    Add a callback handler (e.g., CallbackQueryHandler) if exists.
+    """
+    if hasattr(handler_module, handler_attr):
+        handler_func = getattr(handler_module, handler_attr)
+        app.add_handler(callback_class(handler_func))
+        logger.debug("Registered callback handler %s.%s", handler_module.__name__, handler_attr)
+    else:
+        logger.warning("Callback handler missing: %s.%s not found. Skipping.", handler_module.__name__, handler_attr)
+
+
 def register_handlers(app):
-    # Basic user commands
-    app.add_handler(CommandHandler("start", user_handlers.start))
-    app.add_handler(CommandHandler("cmd", user_handlers.cmd))
-    app.add_handler(CommandHandler("verse", user_handlers.verse))
-    app.add_handler(CommandHandler("prayer", user_handlers.prayer))
-    app.add_handler(CommandHandler("events", user_handlers.events))
-    app.add_handler(CommandHandler("tops", user_handlers.tops))
-    app.add_handler(CommandHandler("daily_inspiration", user_handlers.daily))
-    app.add_handler(CommandHandler("myid", user_handlers.myid))
-    app.add_handler(CommandHandler("chatid", user_handlers.chatid))
-    app.add_handler(CommandHandler("tran", user_handlers.tran))
+    # Basic user commands (use safe_add_command)
+    safe_add_command(app, "start", user_handlers, "start")
+    safe_add_command(app, "cmd", user_handlers, "cmd")
+    safe_add_command(app, "verse", user_handlers, "verse")
+    safe_add_command(app, "prayer", user_handlers, "prayer")
+    safe_add_command(app, "events", user_handlers, "events")
+    safe_add_command(app, "tops", user_handlers, "tops")
+    safe_add_command(app, "daily_inspiration", user_handlers, "daily")
+    safe_add_command(app, "myid", user_handlers, "myid")
+    safe_add_command(app, "chatid", user_handlers, "chatid")
+    safe_add_command(app, "tran", user_handlers, "tran")
 
     # Quiz (uses inline buttons)
-    app.add_handler(CommandHandler("quiz", quiz_handlers.quiz))
-    app.add_handler(CallbackQueryHandler(quiz_handlers.quiz_button))
+    safe_add_command(app, "quiz", quiz_handlers, "quiz")
+    safe_add_callback(app, quiz_handlers, "quiz_button", CallbackQueryHandler)
 
     # Admin
-    app.add_handler(CommandHandler("addadmin", admin_handlers.addadmin))
-    app.add_handler(CommandHandler("listadmins", admin_handlers.listadmins))
-    app.add_handler(CommandHandler("deladmin", admin_handlers.deladmin))
+    safe_add_command(app, "addadmin", admin_handlers, "addadmin")
+    safe_add_command(app, "listadmins", admin_handlers, "listadmins")
+    safe_add_command(app, "deladmin", admin_handlers, "deladmin")
 
     # Broadcast
-    app.add_handler(CommandHandler("broadcast", broadcast_handlers.broadcast_cmd))
-    app.add_handler(CommandHandler("broadcast_users", broadcast_handlers.broadcast_users_cmd))
+    safe_add_command(app, "broadcast", broadcast_handlers, "broadcast_cmd")
+    safe_add_command(app, "broadcast_users", broadcast_handlers, "broadcast_users_cmd")
 
     # Centralized error handler
     app.add_error_handler(bot_error_handler)
@@ -125,7 +136,6 @@ def main():
     while True:
         try:
             logger.info("Starting bot (attempt %d)", attempt + 1)
-            # run_polling blocks until stopped or an exception occurs
             app.run_polling(drop_pending_updates=True, allowed_updates=Update.ALL_TYPES)
             logger.info("Bot stopped normally.")
             break
