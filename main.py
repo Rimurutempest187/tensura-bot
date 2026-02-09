@@ -93,6 +93,8 @@ def register_handlers(app):
     safe_add_command(app, "myid", user_handlers, "myid")
     safe_add_command(app, "chatid", user_handlers, "chatid")
     safe_add_command(app, "tran", user_handlers, "tran")
+    safe_add_command(app, "addevent", user_handlers, "addevent")
+    safe_add_command(app, "clearevents", user_handlers, "clearevents")
 
     # Quiz
     safe_add_command(app, "quiz", quiz_handlers, "quiz")
