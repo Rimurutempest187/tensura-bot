@@ -3,6 +3,8 @@ from pathlib import Path
 from telegram import Update
 from telegram.ext import ContextTypes
 from utils.translate_utils import translate_auto
+from db import SessionLocal
+from models import Prayer
 
 logger = logging.getLogger(__name__)
 DATA_DIR = Path("data")
@@ -48,25 +50,33 @@ async def verse(update: Update, context: ContextTypes.DEFAULT_TYPE):
     verses = data.get("verses", [])
     await update.message.reply_text("📖 " + random.choice(verses))
 
+# handlers/user_handlers.py
+
+
 async def prayer(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = " ".join(context.args)
     if not text:
         await update.message.reply_text("သင့်ဆုတောင်းကို /prayer <text> အနေနဲ့ ရေးပေးပါ။")
         return
-    prayers = _load_json(PRAYER_FILE, {"prayers": []}).get("prayers", [])
-    prayers.append({"user": update.effective_user.username or update.effective_user.full_name, "text": text})
-    _save_json(PRAYER_FILE, {"prayers": prayers})
-    await update.message.reply_text("🙏 သင့်ဆုတောင်းကို သိမ်းပြီးပါပြီ။")
+    session = SessionLocal()
+    prayer = Prayer(user=update.effective_user.username or update.effective_user.full_name, text=text)
+    session.add(prayer)
+    session.commit()
+    session.close()
+    await update.message.reply_text("🙏 သင့်ဆုတောင်းကို Database ထဲသိမ်းပြီးပါပြီ။")
 
 async def prayerlist(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    prayers = _load_json(PRAYER_FILE, {"prayers": []}).get("prayers", [])
+    session = SessionLocal()
+    prayers = session.query(Prayer).all()
+    session.close()
     if not prayers:
         await update.message.reply_text("🙏 ဆုတောင်းစာရင်း မရှိသေးပါ။")
         return
     lines = ["🙏 Prayer Requests:"]
-    for i, p in enumerate(prayers, 1):
-        lines.append(f"{i}. {p['user']}: {p['text']}")
+    for p in prayers:
+        lines.append(f"- {p.user}: {p.text}")
     await update.message.reply_text("\n".join(lines))
+
 
 async def events(update: Update, context: ContextTypes.DEFAULT_TYPE):
     evs = _load_json(EVENTS_FILE, {"events": []}).get("events", [])
