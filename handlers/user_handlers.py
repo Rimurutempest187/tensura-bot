@@ -6,24 +6,30 @@ from utils.translate_utils import translate_auto
 
 logger = logging.getLogger(__name__)
 # handlers/user_handlers.py (example)
+from telegram import Update
+from telegram.ext import ContextTypes
+
 async def cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Available commands: 
-    /start — Initialize conversation; shows welcome message.
-    /cmd — Show a short list of available commands or help text.
-    /verse — Send a Bible verse (or configured verse content).
-    /prayer — Send a prayer or prayer-related content.
-    /events — List upcoming events.
-    /tops — Show top items (e.g., top verses, top posts).
-    /daily_inspiration — Send the daily inspiration message.
-    /myid — Reply with your user ID.
-    /chatid — Reply with the current chat ID.
-    /tran — Translate text (see usage below).
-    /quiz — Start a quiz (uses inline buttons).
-    /addadmin — Add an admin (admin-only).
-    /listadmins — List current admins (admin-only).
-    /deladmin — Remove an admin (admin-only).
-    /broadcast — Send a broadcast message (admin-only).
-    /broadcast_users — Broadcast to users list (admin-only).")
+    text = (
+        "📖 Available commands:\n"
+        "/start - Welcome message\n"
+        "/cmd - Show commands list\n"
+        "/verse - Daily Bible verse\n"
+        "/prayer - Prayer request\n"
+        "/events - Upcoming church events\n"
+        "/daily_inspiration - Daily inspiration\n"
+        "/myid - Show your user ID\n"
+        "/chatid - Show this chat ID\n"
+        "/tran - Translate text\n"
+        "/quiz - Start a quiz\n"
+        "/addadmin - Add admin\n"
+        "/listadmins - List admins\n"
+        "/deladmin - Delete admin\n"
+        "/broadcast - Broadcast message\n"
+        "/broadcast_users - Broadcast to users"
+    )
+    await update.message.reply_text(text)
+
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("✝️ Welcome to Church Community Bot ✝️
