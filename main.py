@@ -6,7 +6,7 @@ import time
 from pathlib import Path
 from dotenv import load_dotenv
 
-# Try to import Request; if unavailable, continue without custom Request
+# Try to import Request from python-telegram-bot; if unavailable, continue without custom Request
 Request = None
 try:
     from telegram.request import Request  # python-telegram-bot v20+
@@ -33,17 +33,17 @@ load_dotenv()
 
 logging.basicConfig(
     format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
-    level=logging.INFO
+    level=logging.INFO,
 )
 logger = logging.getLogger("ChurchBot")
 
-# Early detection of conflicting 'telegram' package
+# Warn early if a conflicting 'telegram' package is present
 try:
     import telegram as _tg_pkg
     if not hasattr(_tg_pkg, "ext"):
         logger.warning(
-            "A conflicting 'telegram' package (not python-telegram-bot) may be installed. "
-            "If you see import errors, uninstall 'telegram' and install 'python-telegram-bot==20.7'."
+            "A package named 'telegram' is installed but does not look like python-telegram-bot. "
+            "This may cause import errors. Ensure python-telegram-bot==20.x is installed and no conflicting 'telegram' package exists."
         )
 except Exception:
     pass
@@ -60,7 +60,7 @@ def build_request_from_env():
     Supports TELEGRAM_PROXY or standard HTTP(S)_PROXY env vars.
     """
     if Request is None:
-        logger.info("telegram.request.Request not available; using default request settings.")
+        logger.debug("telegram.request.Request not available; using default request settings.")
         return None
 
     proxy = os.getenv("TELEGRAM_PROXY") or os.getenv("HTTPS_PROXY") or os.getenv("HTTP_PROXY")
@@ -125,6 +125,7 @@ def main():
     while True:
         try:
             logger.info("Starting bot (attempt %d)", attempt + 1)
+            # run_polling blocks until stopped or an exception occurs
             app.run_polling(drop_pending_updates=True, allowed_updates=Update.ALL_TYPES)
             logger.info("Bot stopped normally.")
             break
