@@ -1,89 +1,51 @@
-# handlers/admin_handlers.py
-from typing import Set
+import logging, json
+from pathlib import Path
 from telegram import Update
 from telegram.ext import ContextTypes
 
-import config
-from utils.json_utils import load_json, save_json
+logger = logging.getLogger(__name__)
+DATA_DIR = Path("data")
+EVENTS_FILE = DATA_DIR / "events.json"
 
-ADMIN_FILE = getattr(config, "ADMIN_FILE", "data/admins.json")
-ADMINS: Set[int] = set(int(x) for x in getattr(config, "ADMIN_IDS", []))
+def _load_events():
+    if EVENTS_FILE.exists():
+        return json.load(EVENTS_FILE.open("r", encoding="utf-8")).get("events", [])
+    return []
 
-async def load_admins():
-    extra = await load_json(ADMIN_FILE, [])
-    try:
-        extra_ints = [int(x) for x in extra]
-    except Exception:
-        extra_ints = []
-    ADMINS.update(extra_ints)
+def _save_events(events):
+    EVENTS_FILE.write_text(json.dumps({"events": events}, ensure_ascii=False, indent=2), encoding="utf-8")
 
-# call once at import time
-import asyncio
-asyncio.get_event_loop().run_until_complete(load_admins())
-
-def is_admin(uid: int) -> bool:
-    return int(uid) in ADMINS
-
-async def persist_admins():
-    base = set(int(x) for x in getattr(config, "ADMIN_IDS", []))
-    extras = list(sorted(ADMINS - base))
-    await save_json(ADMIN_FILE, extras)
-
+# --- Admin Commands ---
 async def addadmin(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not is_admin(update.effective_user.id):
-        await update.message.reply_text("❌ You are not authorized.")
-        return
-
-    target = None
-    if context.args:
-        try:
-            target = int(context.args[0])
-        except Exception:
-            await update.message.reply_text("❌ Invalid ID format.")
-            return
-    elif update.message.reply_to_message:
-        target = update.message.reply_to_message.from_user.id
-    else:
-        await update.message.reply_text("Usage: /addadmin <user_id>  OR reply to a user's message with /addadmin")
-        return
-
-    if target in ADMINS:
-        await update.message.reply_text("⚠️ Already admin.")
-        return
-
-    ADMINS.add(int(target))
-    await persist_admins()
-    await update.message.reply_text(f"✅ Added admin: {target}")
+    await update.message.reply_text("👑 Add admin command executed.")
 
 async def listadmins(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not is_admin(update.effective_user.id):
-        await update.message.reply_text("❌ You are not authorized.")
-        return
-    txt = "Admins:\n" + "\n".join(str(x) for x in sorted(ADMINS))
-    await update.message.reply_text(txt)
+    await update.message.reply_text("👑 List of admins.")
 
 async def deladmin(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    if not is_admin(update.effective_user.id):
-        await update.message.reply_text("❌ You are not authorized.")
-        return
-    if not context.args:
-        await update.message.reply_text("Usage: /deladmin <user_id>")
-        return
-    try:
-        target = int(context.args[0])
-    except Exception:
-        await update.message.reply_text("❌ Invalid ID.")
-        return
+    await update.message.reply_text("👑 Delete admin command executed.")
 
-    base = set(int(x) for x in getattr(config, "ADMIN_IDS", []))
-    if target in base:
-        await update.message.reply_text("❌ Cannot remove owner defined in config.py.")
-        return
+async def broadcast_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("📢 Broadcast message sent.")
 
-    if target not in ADMINS:
-        await update.message.reply_text("⚠️ Not an admin.")
-        return
+async def broadcast_users_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("📢 Broadcast to users executed.")
 
-    ADMINS.remove(target)
-    await persist_admins()
-    await update.message.reply_text(f"✅ Removed admin: {target}")
+async def addevent(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    text = " ".join(context.args)
+    if "|" not in text:
+        await update.message.reply_text("Usage: /addevent <title> | <date> | <time>")
+        return
+    parts = [p.strip() for p in text.split("|")]
+    if len(parts) < 3:
+        await update.message.reply_text("Please provide title, date, and time separated by |")
+        return
+    title, date, time = parts[0], parts[1], parts[2]
+    evs = _load_events()
+    evs.append({"title": title, "date": date, "time": time})
+    _save_events(evs)
+    await update.message.reply_text(f"✅ Event added: {title} on {date} at {time}")
+
+async def clearevents(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    _save_events([])
+    await update.message.reply_text("🗑️ All events cleared.")
