@@ -13,6 +13,7 @@ DATA_DIR = Path("data")
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 VERSE_FILE = DATA_DIR / "verse.json"
 EVENTS_FILE = DATA_DIR / "events.json"
+PRAYER_FILE = DATA_DIR / "prayers.json"
 
 # --- Utility loaders ---
 def _load_json_safe(path: Path, default: dict):
@@ -35,6 +36,15 @@ def _save_events(events):
     except Exception as e:
         logger.exception("Failed to save events: %s", e)
 
+def _load_prayers():
+    return _load_json_safe(PRAYER_FILE, {"prayers": []}).get("prayers", [])
+
+def _save_prayers(prayers):
+    try:
+        PRAYER_FILE.write_text(json.dumps({"prayers": prayers}, ensure_ascii=False, indent=2), encoding="utf-8")
+    except Exception as e:
+        logger.exception("Failed to save prayers: %s", e)
+
 # --- Command Handlers ---
 
 async def cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -43,7 +53,8 @@ async def cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
         "/start - Welcome message\n"
         "/cmd - Show commands list\n"
         "/verse - Daily Bible verse\n"
-        "/prayer - Prayer request\n"
+        "/prayer - Add a prayer request\n"
+        "/prayerlist - Show all prayer requests\n"
         "/events - Upcoming church events\n"
         "/addevent - Add new event\n"
         "/clearevents - Clear all events\n"
@@ -87,7 +98,30 @@ async def verse(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def prayer(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🙏 Prayer request received. May God bless you.")
+    text = " ".join(context.args)
+    if not text:
+        await update.message.reply_text("သင့်ဆုတောင်းကို /prayer <text> အနေနဲ့ ရေးပေးပါ။")
+        return
+    prayers = _load_prayers()
+    prayers.append({
+        "user": update.effective_user.username or update.effective_user.full_name,
+        "text": text
+    })
+    _save_prayers(prayers)
+    await update.message.reply_text("🙏 သင့်ဆုတောင်းကို သိမ်းပြီးပါပြီ။ ဘုရားသခင်က ကောင်းချီးပေးပါစေ။")
+
+
+async def prayerlist(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    prayers = _load_prayers()
+    if not prayers:
+        await update.message.reply_text("🙏 ဆုတောင်းစာရင်း မရှိသေးပါ။")
+        return
+    lines = ["🙏 Prayer Requests:"]
+    for idx, p in enumerate(prayers, start=1):
+        user = p.get("user", "Anonymous")
+        text = p.get("text", "")
+        lines.append(f"{idx}. {user}: {text}")
+    await update.message.reply_text("\n".join(lines))
 
 
 async def events(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -105,29 +139,19 @@ async def events(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def addevent(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """
-    Usage:
-      /addevent <title> | <date> | <time>
-    Example:
-      /addevent Bible Study | 2026-02-17 | 7:00 PM
-    """
-    try:
-        text = " ".join(context.args)
-        if "|" not in text:
-            await update.message.reply_text("Usage: /addevent <title> | <date> | <time>")
-            return
-        parts = [p.strip() for p in text.split("|")]
-        if len(parts) < 3:
-            await update.message.reply_text("Please provide title, date, and time separated by |")
-            return
-        title, date, time = parts[0], parts[1], parts[2]
-        events = _load_events()
-        events.append({"title": title, "date": date, "time": time})
-        _save_events(events)
-        await update.message.reply_text(f"✅ Event added: {title} on {date} at {time}")
-    except Exception as e:
-        await update.message.reply_text("Failed to add event. Please try again.")
-        logger.exception("Error in /addevent: %s", e)
+    text = " ".join(context.args)
+    if "|" not in text:
+        await update.message.reply_text("Usage: /addevent <title> | <date> | <time>")
+        return
+    parts = [p.strip() for p in text.split("|")]
+    if len(parts) < 3:
+        await update.message.reply_text("Please provide title, date, and time separated by |")
+        return
+    title, date, time = parts[0], parts[1], parts[2]
+    events = _load_events()
+    events.append({"title": title, "date": date, "time": time})
+    _save_events(events)
+    await update.message.reply_text(f"✅ Event added: {title} on {date} at {time}")
 
 
 async def clearevents(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -148,12 +172,6 @@ async def chatid(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 async def tran(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    """
-    Usage:
-      /tran some text
-      or reply to a message with /tran
-      optional: /tran en  (translate to English) or /tran my (translate to Myanmar)
-    """
     try:
         args = context.args or []
         target = None
