@@ -1,19 +1,31 @@
-# main.py
+# main.py (imports)
 import logging
 import os
-import sys
-import time
 from pathlib import Path
 from dotenv import load_dotenv
 
+# telegram imports with fallback
+try:
+    # preferred for python-telegram-bot v20+
+    from telegram.request import Request
+except Exception:
+    # older versions used telegram.utils.request
+    try:
+        from telegram.utils.request import Request
+    except Exception as e:
+        raise ImportError(
+            "Cannot import Request from telegram. "
+            "Make sure python-telegram-bot v20.x is installed and there's no conflicting 'telegram' package. "
+            f"Original error: {e}"
+        )
+
 from telegram import Update
-from telegram.error import NetworkError
-from telegram.request import Request
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
     CallbackQueryHandler,
 )
+
 
 import config
 from utils.json_utils import init_data_files
