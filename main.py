@@ -13,9 +13,8 @@ from telegram.ext import (
 
 import config
 from utils.json_utils import init_data_files
-from handlers import user_handlers, quiz_handlers, admin_handlers, broadcast_handlers
 from utils.bot_utils import error_handler as bot_error_handler
-from handlers import quiz_handlers, admin_handlers, broadcast_handlers, user_handlers
+from handlers import user_handlers, quiz_handlers, admin_handlers, broadcast_handlers
 
 load_dotenv()
 
