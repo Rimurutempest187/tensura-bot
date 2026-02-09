@@ -6,18 +6,17 @@ import time
 from pathlib import Path
 from dotenv import load_dotenv
 
-# telegram imports with safe fallback for Request
+# Try to import Request; if unavailable, continue without custom Request
+Request = None
 try:
-    from telegram.request import Request
+    from telegram.request import Request  # python-telegram-bot v20+
 except Exception:
     try:
-        from telegram.utils.request import Request
-    except Exception as e:
-        raise ImportError(
-            "Cannot import Request from telegram. Ensure python-telegram-bot v20.x is installed "
-            "and there is no conflicting 'telegram' package. Original error: " + str(e)
-        )
+        from telegram.utils.request import Request  # older layouts (rare)
+    except Exception:
+        Request = None
 
+# Basic telegram imports
 from telegram import Update
 from telegram.error import NetworkError
 from telegram.ext import (
@@ -39,19 +38,34 @@ logging.basicConfig(
 )
 logger = logging.getLogger("ChurchBot")
 
+# Detect likely conflicting 'telegram' package early and warn
+try:
+    import telegram as _tg_pkg
+    if not hasattr(_tg_pkg, "ext"):
+        logger.error(
+            "Detected a conflicting 'telegram' package that is not python-telegram-bot. "
+            "This will likely cause import errors. Please ensure 'python-telegram-bot==20.7' is installed "
+            "and uninstall any package named 'telegram'."
+        )
+except Exception:
+    # ignore if import fails here; later imports will show errors
+    pass
+
 # Ensure data folders & files
 DATA_DIR = getattr(config, "DATA_DIR", "data")
 Path(DATA_DIR).mkdir(parents=True, exist_ok=True)
 init_data_files(DATA_DIR)
 
 
-def build_request_from_env() -> Request:
+def build_request_from_env():
     """
-    Build a telegram Request object using sensible timeouts and optional proxy from env.
-    Supported env vars:
-      - TELEGRAM_PROXY (preferred)
-      - HTTPS_PROXY / HTTP_PROXY (standard)
+    Build a Request object if available. If Request is not importable, return None.
+    Supports TELEGRAM_PROXY or standard HTTP(S)_PROXY env vars.
     """
+    if Request is None:
+        logger.warning("telegram.request.Request not available; using default request settings.")
+        return None
+
     proxy = os.getenv("TELEGRAM_PROXY") or os.getenv("HTTPS_PROXY") or os.getenv("HTTP_PROXY")
     request_kwargs = {
         "connect_timeout": int(os.getenv("TG_CONNECT_TIMEOUT", "10")),
@@ -100,7 +114,11 @@ def main():
         raise SystemExit("BOT_TOKEN missing in config.py")
 
     request = build_request_from_env()
-    app = ApplicationBuilder().token(config.BOT_TOKEN).request(request).build()
+    if request is not None:
+        app = ApplicationBuilder().token(config.BOT_TOKEN).request(request).build()
+    else:
+        # fallback to default request behavior
+        app = ApplicationBuilder().token(config.BOT_TOKEN).build()
 
     register_handlers(app)
 
@@ -111,7 +129,6 @@ def main():
     while True:
         try:
             logger.info("Starting bot (attempt %d)", attempt + 1)
-            # run_polling blocks until stopped or an exception occurs
             app.run_polling(drop_pending_updates=True, allowed_updates=Update.ALL_TYPES)
             logger.info("Bot stopped normally.")
             break
