@@ -5,3 +5,8 @@ deep-translator==1.11.4
 flask==2.2.5
 apscheduler==3.11.2
 nest-asyncio==1.5.6
+SQLAlchemy==2.0.25
+psycopg2-binary==2.9.9   # PostgreSQL driver
+aiosqlite==0.19.0        # SQLite async support
+requests==2.31.0         # API calls (Bible verse API, etc.)
+sentry-sdk==1.40.0       # Error monitoring
