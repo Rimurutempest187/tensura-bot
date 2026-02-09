@@ -1,31 +1,30 @@
-# main.py (imports)
+# main.py
 import logging
 import os
+import sys
+import time
 from pathlib import Path
 from dotenv import load_dotenv
 
-# telegram imports with fallback
+# telegram imports with safe fallback for Request
 try:
-    # preferred for python-telegram-bot v20+
     from telegram.request import Request
 except Exception:
-    # older versions used telegram.utils.request
     try:
         from telegram.utils.request import Request
     except Exception as e:
         raise ImportError(
-            "Cannot import Request from telegram. "
-            "Make sure python-telegram-bot v20.x is installed and there's no conflicting 'telegram' package. "
-            f"Original error: {e}"
+            "Cannot import Request from telegram. Ensure python-telegram-bot v20.x is installed "
+            "and there is no conflicting 'telegram' package. Original error: " + str(e)
         )
 
 from telegram import Update
+from telegram.error import NetworkError
 from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
     CallbackQueryHandler,
 )
-
 
 import config
 from utils.json_utils import init_data_files
@@ -36,7 +35,7 @@ load_dotenv()
 
 logging.basicConfig(
     format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
-    level=logging.INFO
+    level=logging.INFO,
 )
 logger = logging.getLogger("ChurchBot")
 
@@ -45,25 +44,26 @@ DATA_DIR = getattr(config, "DATA_DIR", "data")
 Path(DATA_DIR).mkdir(exist_ok=True)
 init_data_files(DATA_DIR)
 
+
 def build_request_from_env() -> Request:
     """
     Build a telegram Request object using sensible timeouts and optional proxy from env.
-    Environment variables supported:
+    Supported env vars:
       - TELEGRAM_PROXY (http://user:pass@host:port)
-      - HTTP_PROXY / HTTPS_PROXY (standard)
+      - HTTPS_PROXY / HTTP_PROXY
     """
     proxy = os.getenv("TELEGRAM_PROXY") or os.getenv("HTTPS_PROXY") or os.getenv("HTTP_PROXY")
-    # tune timeouts and connection pool for reliability
     request_kwargs = {
-        "connect_timeout": 10,
-        "read_timeout": 20,
-        "write_timeout": 20,
-        "con_pool_size": 8,
+        "connect_timeout": int(os.getenv("TG_CONNECT_TIMEOUT", "10")),
+        "read_timeout": int(os.getenv("TG_READ_TIMEOUT", "20")),
+        "write_timeout": int(os.getenv("TG_WRITE_TIMEOUT", "20")),
+        "con_pool_size": int(os.getenv("TG_CONN_POOL", "8")),
     }
     if proxy:
         request_kwargs["proxy_url"] = proxy
         logger.info("Using proxy for Telegram requests: %s", proxy)
     return Request(**request_kwargs)
+
 
 def register_handlers(app):
     # Basic user commands
@@ -94,6 +94,7 @@ def register_handlers(app):
     # Centralized error handler
     app.add_error_handler(bot_error_handler)
 
+
 def main():
     if not getattr(config, "BOT_TOKEN", None):
         raise SystemExit("BOT_TOKEN missing in config.py")
@@ -110,9 +111,8 @@ def main():
     while True:
         try:
             logger.info("Starting bot (attempt %d)", attempt + 1)
-            # run_polling will block until stopped or an exception occurs
+            # run_polling blocks until stopped or an exception occurs
             app.run_polling(drop_pending_updates=True, allowed_updates=Update.ALL_TYPES)
-            # If run_polling returns normally, exit loop
             logger.info("Bot stopped normally.")
             break
         except NetworkError as e:
@@ -125,9 +125,9 @@ def main():
             logger.info("Retrying in %s seconds...", sleep_for)
             time.sleep(sleep_for)
         except Exception as e:
-            # Unexpected exception: log and exit (or you can choose to retry)
             logger.exception("Unexpected error: %s", e)
             sys.exit(1)
+
 
 if __name__ == "__main__":
     main()
