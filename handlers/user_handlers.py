@@ -1,4 +1,4 @@
-# handlers/user_handlers.py
+ # handlers/user_handlers.py
 import json
 import random
 import logging
@@ -86,8 +86,8 @@ async def events(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return
     lines = ["📅 Upcoming Events:"]
     for ev in evs:
-        title = ev.get("title", "Untitled")
-        date = ev.get("date", "TBA")
+        title = ev.get("title", "")
+        date = ev.get("date", "")
         time = ev.get("time", "")
         lines.append(f"- {title} on {date} {time}".strip())
     await update.message.reply_text("\n".join(lines))
