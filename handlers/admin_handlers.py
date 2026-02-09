@@ -9,7 +9,7 @@ DATA_DIR = Path("data")
 EVENTS_FILE = DATA_DIR / "events.json"
 
 # Admin IDs ကို သင့် Telegram User ID နဲ့ ပြောင်းပေးပါ
-ADMIN_IDS = [5085103993, 987654321]
+ADMIN_IDS = [5085103993, 987621]
 
 def is_admin(user_id):
     return user_id in ADMIN_IDS
