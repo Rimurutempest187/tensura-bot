@@ -83,33 +83,30 @@ def safe_add_callback(app, handler_module, handler_attr: str, callback_class):
 
 
 def register_handlers(app):
-    # User commands
+    # --- User Commands ---
     safe_add_command(app, "start", user_handlers, "start")
     safe_add_command(app, "cmd", user_handlers, "cmd")
     safe_add_command(app, "verse", user_handlers, "verse")
     safe_add_command(app, "prayer", user_handlers, "prayer")
+    safe_add_command(app, "prayerlist", user_handlers, "prayerlist")
     safe_add_command(app, "events", user_handlers, "events")
     safe_add_command(app, "daily_inspiration", user_handlers, "daily")
     safe_add_command(app, "myid", user_handlers, "myid")
     safe_add_command(app, "chatid", user_handlers, "chatid")
     safe_add_command(app, "tran", user_handlers, "tran")
-    safe_add_command(app, "addevent", user_handlers, "addevent")
-    safe_add_command(app, "clearevents", user_handlers, "clearevents")
-
-    # Quiz
     safe_add_command(app, "quiz", quiz_handlers, "quiz")
     safe_add_callback(app, quiz_handlers, "quiz_button", CallbackQueryHandler)
 
-    # Admin
+    # --- Admin Commands ---
     safe_add_command(app, "addadmin", admin_handlers, "addadmin")
     safe_add_command(app, "listadmins", admin_handlers, "listadmins")
     safe_add_command(app, "deladmin", admin_handlers, "deladmin")
+    safe_add_command(app, "broadcast", admin_handlers, "broadcast_cmd")
+    safe_add_command(app, "broadcast_users", admin_handlers, "broadcast_users_cmd")
+    safe_add_command(app, "addevent", admin_handlers, "addevent")
+    safe_add_command(app, "clearevents", admin_handlers, "clearevents")
 
-    # Broadcast
-    safe_add_command(app, "broadcast", broadcast_handlers, "broadcast_cmd")
-    safe_add_command(app, "broadcast_users", broadcast_handlers, "broadcast_users_cmd")
-
-    # Error handler
+    # --- Error Handler ---
     app.add_error_handler(bot_error_handler)
 
 
