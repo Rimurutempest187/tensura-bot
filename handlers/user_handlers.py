@@ -5,9 +5,7 @@ from telegram.ext import ContextTypes
 from utils.translate_utils import translate_auto
 
 logger = logging.getLogger(__name__)
-# handlers/user_handlers.py (example)
-from telegram import Update
-from telegram.ext import ContextTypes
+# handlers/user_handlers.py 
 
 async def cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
