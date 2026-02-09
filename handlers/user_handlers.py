@@ -12,6 +12,19 @@ logger = logging.getLogger(__name__)
 DATA_DIR = Path("data")
 DATA_DIR.mkdir(parents=True, exist_ok=True)
 
+# --- Utility loader ---
+def _load_json_safe(path: Path, default: dict):
+    try:
+        if not path.exists():
+            path.write_text(json.dumps(default, ensure_ascii=False, indent=2), encoding="utf-8")
+            return default
+        with path.open("r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as e:
+        logger.exception("Failed to load or parse %s: %s", path, e)
+        return default
+
+# --- Command Handlers ---
 
 async def cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
@@ -37,7 +50,7 @@ async def cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = (
-        "✝️ Welcome to Church Community ✝️\n\n"
+        "✝️ Welcome to Church Community Bot ✝️\n\n"
         "Here you will find:\n"
         "✨ Daily inspiration\n"
         "📖 Bible verses\n"
@@ -49,31 +62,24 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
     await update.message.reply_text(text)
 
-# handlers/user_handlers.py (excerpt
-
-def _load_json_safe(path: Path, default):
-    try:
-        if not path.exists():
-            path.write_text(json.dumps(default, ensure_ascii=False, indent=2), encoding="utf-8")
-            return default
-        with path.open("r", encoding="utf-8") as f:
-            return json.load(f)
-    except Exception as e:
-        logger.exception("Failed to load or parse %s: %s", path, e)
-        # overwrite with default to recover
-        path.write_text(json.dumps(default, ensure_ascii=False, indent=2), encoding="utf-8")
-        return default
 
 async def verse(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    data = _load_json_safe(DATA_DIR / "verse.json")
+    default = {"verses": ["The Lord is my shepherd; I shall not want. (Psalm 23:1)"]}
+    data = _load_json_safe(DATA_DIR / "verse.json", default)
     verses = data.get("verses", [])
     if not verses:
         await update.message.reply_text("No verses available right now.")
         return
     await update.message.reply_text("📖 " + random.choice(verses))
 
+
+async def prayer(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    await update.message.reply_text("🙏 Prayer request received. May God bless you.")
+
+
 async def events(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    data = _load_json_safe(DATA_DIR / "events.json")
+    default = {"events": [{"title": "Sunday Service", "date": "2026-02-15", "time": "10:00 AM"}]}
+    data = _load_json_safe(DATA_DIR / "events.json", default)
     evs = data.get("events", [])
     if not evs:
         await update.message.reply_text("No events scheduled.")
@@ -86,9 +92,6 @@ async def events(update: Update, context: ContextTypes.DEFAULT_TYPE):
         lines.append(f"- {title} on {date} {time}".strip())
     await update.message.reply_text("\n".join(lines))
 
-
-async def prayer(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("🙏 Prayer request received. May God bless you.")
 
 async def daily(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("✨ Today's inspiration: 'The Lord is my shepherd; I shall not want.'")
