@@ -1,0 +1,12 @@
+version: "3.8"
+services:
+  churchbot:
+    build: .
+    environment:
+      - BOT_TOKEN=${BOT_TOKEN}
+    restart: on-failure
+    # map local data folder to container to persist data
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "8080:8080" # only if you use webhook / flask; otherwise optional
