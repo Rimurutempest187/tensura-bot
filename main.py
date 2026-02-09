@@ -62,10 +62,7 @@ def build_request_from_env():
 
 
 def safe_add_command(app, command_name: str, handler_module, handler_attr: str):
-    """
-    Add a CommandHandler only if the handler exists in the module.
-    Logs a warning if missing.
-    """
+    """Add a CommandHandler only if the handler exists in the module."""
     if hasattr(handler_module, handler_attr):
         handler_func = getattr(handler_module, handler_attr)
         app.add_handler(CommandHandler(command_name, handler_func))
@@ -76,9 +73,7 @@ def safe_add_command(app, command_name: str, handler_module, handler_attr: str):
 
 
 def safe_add_callback(app, handler_module, handler_attr: str, callback_class):
-    """
-    Add a callback handler (e.g., CallbackQueryHandler) if exists.
-    """
+    """Add a callback handler (e.g., CallbackQueryHandler) if exists."""
     if hasattr(handler_module, handler_attr):
         handler_func = getattr(handler_module, handler_attr)
         app.add_handler(callback_class(handler_func))
@@ -88,19 +83,18 @@ def safe_add_callback(app, handler_module, handler_attr: str, callback_class):
 
 
 def register_handlers(app):
-    # Basic user commands (use safe_add_command)
+    # User commands
     safe_add_command(app, "start", user_handlers, "start")
     safe_add_command(app, "cmd", user_handlers, "cmd")
     safe_add_command(app, "verse", user_handlers, "verse")
     safe_add_command(app, "prayer", user_handlers, "prayer")
     safe_add_command(app, "events", user_handlers, "events")
-    safe_add_command(app, "tops", user_handlers, "tops")
     safe_add_command(app, "daily_inspiration", user_handlers, "daily")
     safe_add_command(app, "myid", user_handlers, "myid")
     safe_add_command(app, "chatid", user_handlers, "chatid")
     safe_add_command(app, "tran", user_handlers, "tran")
 
-    # Quiz (uses inline buttons)
+    # Quiz
     safe_add_command(app, "quiz", quiz_handlers, "quiz")
     safe_add_callback(app, quiz_handlers, "quiz_button", CallbackQueryHandler)
 
@@ -113,7 +107,7 @@ def register_handlers(app):
     safe_add_command(app, "broadcast", broadcast_handlers, "broadcast_cmd")
     safe_add_command(app, "broadcast_users", broadcast_handlers, "broadcast_users_cmd")
 
-    # Centralized error handler
+    # Error handler
     app.add_error_handler(bot_error_handler)
 
 
@@ -141,9 +135,9 @@ def main():
             break
         except NetworkError as e:
             attempt += 1
-            logger.exception("NetworkError while starting/running bot: %s", e)
+            logger.exception("NetworkError while running bot: %s", e)
             if attempt >= max_retries:
-                logger.error("Exceeded max start retries (%d). Exiting.", max_retries)
+                logger.error("Exceeded max retries (%d). Exiting.", max_retries)
                 sys.exit(1)
             sleep_for = backoff_base * attempt
             logger.info("Retrying in %s seconds...", sleep_for)
