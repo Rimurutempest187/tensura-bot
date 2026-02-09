@@ -5,6 +5,7 @@ from typing import List
 
 from telegram import Update
 from telegram.ext import ContextTypes
+from utils.translate_utils import auto_translate
 
 import config
 from utils.json_utils import load_json, save_json
@@ -142,3 +143,22 @@ async def chatid(update: Update, context: ContextTypes.DEFAULT_TYPE):
     cid = update.effective_chat.id
     ctype = update.effective_chat.type
     await update.message.reply_text(f"🆔 Chat ID: {cid}\n📌 Type: {ctype}")
+
+
+
+
+async def tran(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    if not context.args:
+        await update.message.reply_text("Usage: /tran <text>")
+        return
+    
+    text = " ".join(context.args)
+    # Detect language automatically and translate to opposite (Myanmar ↔ English)
+    # Simple logic: if contains Myanmar unicode, translate to English; else to Myanmar
+    if any("\u1000" <= ch <= "\u109F" for ch in text):  # Myanmar unicode range
+        translated = auto_translate(text, src="my", dest="en")
+    else:
+        translated = auto_translate(text, src="en", dest="my")
+    
+    await update.message.reply_text(translated)
+
