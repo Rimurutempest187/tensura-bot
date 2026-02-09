@@ -35,13 +35,13 @@ load_dotenv()
 
 logging.basicConfig(
     format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
-    level=logging.INFO,
+    level=logging.INFO
 )
 logger = logging.getLogger("ChurchBot")
 
 # Ensure data folders & files
 DATA_DIR = getattr(config, "DATA_DIR", "data")
-Path(DATA_DIR).mkdir(exist_ok=True)
+Path(DATA_DIR).mkdir(parents=True, exist_ok=True)
 init_data_files(DATA_DIR)
 
 
@@ -49,8 +49,8 @@ def build_request_from_env() -> Request:
     """
     Build a telegram Request object using sensible timeouts and optional proxy from env.
     Supported env vars:
-      - TELEGRAM_PROXY (http://user:pass@host:port)
-      - HTTPS_PROXY / HTTP_PROXY
+      - TELEGRAM_PROXY (preferred)
+      - HTTPS_PROXY / HTTP_PROXY (standard)
     """
     proxy = os.getenv("TELEGRAM_PROXY") or os.getenv("HTTPS_PROXY") or os.getenv("HTTP_PROXY")
     request_kwargs = {
@@ -104,7 +104,7 @@ def main():
 
     register_handlers(app)
 
-    max_retries = int(os.getenv("BOT_START_RETRIES", "5"))
+    max_retries = int(os.getenv("BOT_START_RETRIES", "6"))
     backoff_base = int(os.getenv("BOT_BACKOFF_SECONDS", "5"))
     attempt = 0
 
@@ -124,6 +124,13 @@ def main():
             sleep_for = backoff_base * attempt
             logger.info("Retrying in %s seconds...", sleep_for)
             time.sleep(sleep_for)
+        except KeyboardInterrupt:
+            logger.info("KeyboardInterrupt received. Shutting down.")
+            try:
+                app.stop()
+            except Exception:
+                pass
+            sys.exit(0)
         except Exception as e:
             logger.exception("Unexpected error: %s", e)
             sys.exit(1)
