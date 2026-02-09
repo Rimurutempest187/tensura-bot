@@ -41,8 +41,6 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     ")
 # handlers/user_handlers.py
-from telegram import Update
-from telegram.ext import ContextTypes
 
 async def prayer(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("🙏 Prayer request received. May God bless you.")
