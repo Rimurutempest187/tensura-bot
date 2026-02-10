@@ -1,7 +1,8 @@
-import logging, json
-from pathlib import Path
+import logging
 from telegram import Update
 from telegram.ext import ContextTypes
+import json
+from pathlib import Path
 
 logger = logging.getLogger(__name__)
 DATA_DIR = Path("data")
@@ -36,11 +37,7 @@ async def addevent(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if "|" not in text:
         await update.message.reply_text("Usage: /addevent <title> | <date> | <time>")
         return
-    parts = [p.strip() for p in text.split("|")]
-    if len(parts) < 3:
-        await update.message.reply_text("Please provide title, date, and time separated by |")
-        return
-    title, date, time = parts[0], parts[1], parts[2]
+    title, date, time = [p.strip() for p in text.split("|")]
     evs = _load_events()
     evs.append({"title": title, "date": date, "time": time})
     _save_events(evs)
