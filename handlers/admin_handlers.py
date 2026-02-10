@@ -8,13 +8,17 @@ logger = logging.getLogger(__name__)
 DATA_DIR = Path("data")
 EVENTS_FILE = DATA_DIR / "events.json"
 
+# --- Helper functions for events ---
 def _load_events():
     if EVENTS_FILE.exists():
         return json.load(EVENTS_FILE.open("r", encoding="utf-8")).get("events", [])
     return []
 
 def _save_events(events):
-    EVENTS_FILE.write_text(json.dumps({"events": events}, ensure_ascii=False, indent=2), encoding="utf-8")
+    EVENTS_FILE.write_text(
+        json.dumps({"events": events}, ensure_ascii=False, indent=2),
+        encoding="utf-8"
+    )
 
 # --- Admin Commands ---
 async def addadmin(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -27,10 +31,20 @@ async def deladmin(update: Update, context: ContextTypes.DEFAULT_TYPE):
     await update.message.reply_text("👑 Delete admin command executed.")
 
 async def broadcast_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("📢 Broadcast message sent.")
+    if not context.args:
+        await update.message.reply_text("Usage: /broadcast <message>")
+        return
+    message = " ".join(context.args)
+    # Placeholder: integrate with broadcast_to_chats for groups later
+    await update.message.reply_text(f"📢 Broadcast message sent: {message}")
 
 async def broadcast_users_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("📢 Broadcast to users executed.")
+    if not context.args:
+        await update.message.reply_text("Usage: /broadcast_users <message>")
+        return
+    message = " ".join(context.args)
+    # Placeholder: integrate with broadcast_to_chats for users later
+    await update.message.reply_text(f"📢 Broadcast to users executed: {message}")
 
 async def addevent(update: Update, context: ContextTypes.DEFAULT_TYPE):
     text = " ".join(context.args)
