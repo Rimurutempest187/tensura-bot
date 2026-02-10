@@ -5,7 +5,6 @@ from utils.json_utils import load_json, save_json
 import config
 from utils.json_utils import load_json
 from utils.bot_utils import broadcast_to_chats
-from handlers.admin_handlers import is_admin
 
 GROUPS_FILE = getattr(config, "GROUPS_FILE", "data/groups.json")
 USERS_FILE = getattr(config, "USERS_FILE", "data/users.json")
