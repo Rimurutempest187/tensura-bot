@@ -3,47 +3,71 @@ from telegram import Update
 from telegram.ext import ContextTypes
 import json
 from pathlib import Path
-import config
 
 logger = logging.getLogger(__name__)
 DATA_DIR = Path("data")
+ADMINS_FILE = DATA_DIR / "admins.json"
 EVENTS_FILE = DATA_DIR / "events.json"
 
-# --- Helper functions for events ---
+# --- Helper functions ---
+def _load_admins():
+    if ADMINS_FILE.exists():
+        return json.load(ADMINS_FILE.open("r", encoding="utf-8")).get("admins", [])
+    return []
+
+def _save_admins(admins):
+    ADMINS_FILE.write_text(json.dumps({"admins": admins}, ensure_ascii=False, indent=2), encoding="utf-8")
+
 def _load_events():
     if EVENTS_FILE.exists():
         return json.load(EVENTS_FILE.open("r", encoding="utf-8")).get("events", [])
     return []
 
 def _save_events(events):
-    EVENTS_FILE.write_text(
-        json.dumps({"events": events}, ensure_ascii=False, indent=2),
-        encoding="utf-8"
-    )
+    EVENTS_FILE.write_text(json.dumps({"events": events}, ensure_ascii=False, indent=2), encoding="utf-8")
 
-# --- Admin check ---
 def is_admin(user_id: int) -> bool:
-    return user_id in getattr(config, "ADMIN_IDS", [])
+    return user_id in _load_admins()
 
 # --- Admin Commands ---
 async def addadmin(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not is_admin(update.effective_user.id):
         await update.message.reply_text("❌ Not authorized.")
         return
-    await update.message.reply_text("👑 Add admin command executed.")
+    if not context.args:
+        await update.message.reply_text("Usage: /addadmin <user_id>")
+        return
+    user_id = int(context.args[0])
+    admins = _load_admins()
+    if user_id not in admins:
+        admins.append(user_id)
+        _save_admins(admins)
+        await update.message.reply_text(f"👑 Admin added: {user_id}")
+    else:
+        await update.message.reply_text("⚠️ Already an admin.")
 
 async def listadmins(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not is_admin(update.effective_user.id):
         await update.message.reply_text("❌ Not authorized.")
         return
-    admins = getattr(config, "ADMIN_IDS", [])
-    await update.message.reply_text(f"👑 List of admins: {admins}")
+    admins = _load_admins()
+    await update.message.reply_text(f"👑 Current admins: {admins}")
 
 async def deladmin(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not is_admin(update.effective_user.id):
         await update.message.reply_text("❌ Not authorized.")
         return
-    await update.message.reply_text("👑 Delete admin command executed.")
+    if not context.args:
+        await update.message.reply_text("Usage: /deladmin <user_id>")
+        return
+    user_id = int(context.args[0])
+    admins = _load_admins()
+    if user_id in admins:
+        admins.remove(user_id)
+        _save_admins(admins)
+        await update.message.reply_text(f"👑 Admin removed: {user_id}")
+    else:
+        await update.message.reply_text("⚠️ Not found in admin list.")
 
 async def broadcast_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if not is_admin(update.effective_user.id):
