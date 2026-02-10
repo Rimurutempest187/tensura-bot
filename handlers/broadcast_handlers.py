@@ -1,5 +1,6 @@
 import logging
 import inspect
+import asyncio
 from telegram import Update
 from telegram.ext import ContextTypes
 import config
@@ -24,7 +25,6 @@ async def _load_persisted_groups():
         data = data.get("groups", [])
     if not isinstance(data, list):
         return []
-    # normalize to ints and dedupe
     out = []
     for x in data:
         try:
@@ -47,13 +47,15 @@ async def _load_users_list():
     return []
 
 
-async def _direct_broadcast(bot, message, chat_ids):
+async def _direct_broadcast(bot, message, chat_ids, delay_ms=200):
     ok = 0
     fail = 0
     for cid in chat_ids:
         try:
             await bot.send_message(chat_id=cid, text=message)
             ok += 1
+            if delay_ms:
+                await asyncio.sleep(delay_ms / 1000.0)
         except Exception as e:
             logger.exception("Direct send failed to %s: %s", cid, e)
             fail += 1
@@ -62,7 +64,6 @@ async def _direct_broadcast(bot, message, chat_ids):
 
 async def broadcast_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user = update.effective_user
-    # admin check: dynamic admins via handlers.admin_handlers.is_admin if available
     try:
         from handlers.admin_handlers import is_admin
         if not is_admin(user.id):
@@ -91,7 +92,6 @@ async def broadcast_cmd(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     await update.message.reply_text(f"📤 Broadcasting to {len(all_ids)} groups...")
 
-    # Try using broadcast_to_chats if available and async
     try:
         result = broadcast_to_chats(context.bot, message, all_ids)
         result = await _maybe_await(result)
