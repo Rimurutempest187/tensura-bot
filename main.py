@@ -137,8 +137,8 @@ def register_handlers(app):
 
     # --- Optional: handle my_chat_member updates to auto-save groups (if implemented) ---
     if hasattr(group_handlers, "on_my_chat_member"):
-        # StatusUpdate.MY_CHAT_MEMBER is the correct filter for my_chat_member updates
-        app.add_handler(MessageHandler(filters.StatusUpdate.MY_CHAT_MEMBER, group_handlers.on_my_chat_member))
+        # Correct filter for PTB v20+
+        app.add_handler(MessageHandler(filters.ChatMemberUpdated(), group_handlers.on_my_chat_member))
         logger.debug("Registered on_my_chat_member handler.")
 
     # --- Error Handler ---
