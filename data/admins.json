@@ -1,1 +1,33 @@
-[]
+{
+  "ADMIN_IDS": [123456789, 987654321],
+  "commands": {
+    "addadmin": {
+      "description": "👑 Admin ထည့်သွင်းရန်",
+      "restricted": true
+    },
+    "listadmins": {
+      "description": "👑 Admin စာရင်းကို ပြရန်",
+      "restricted": true
+    },
+    "deladmin": {
+      "description": "👑 Admin ဖယ်ရှားရန်",
+      "restricted": true
+    },
+    "broadcast": {
+      "description": "📢 Broadcast message ပို့ရန်",
+      "restricted": true
+    },
+    "broadcast_users": {
+      "description": "📢 Users တွေထဲကို Broadcast ပို့ရန်",
+      "restricted": true
+    },
+    "addevent": {
+      "description": "📅 Event အသစ်ထည့်ရန်",
+      "restricted": true
+    },
+    "clearevents": {
+      "description": "🗑️ Event စာရင်းအားလုံး ဖျက်ရန်",
+      "restricted": true
+    }
+  }
+}
