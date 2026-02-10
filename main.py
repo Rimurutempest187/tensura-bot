@@ -1,4 +1,3 @@
-# main.py
 import logging
 import os
 import sys
@@ -28,6 +27,7 @@ import config
 from utils.json_utils import init_data_files
 from utils.bot_utils import error_handler as bot_error_handler
 from handlers import user_handlers, quiz_handlers, admin_handlers, broadcast_handlers
+from scheduler import start_scheduler   # ✅ moved to top-level
 
 load_dotenv()
 
@@ -119,15 +119,12 @@ def main():
         app = ApplicationBuilder().token(config.BOT_TOKEN).request(request).build()
     else:
         app = ApplicationBuilder().token(config.BOT_TOKEN).build()
-    # main.py
-from scheduler import start_scheduler
+
     # register handlers
     register_handlers(app)
+
     # start scheduler
     scheduler = start_scheduler()
-    # run bot
-    app.run_polling()
-    register_handlers(app)
 
     max_retries = int(os.getenv("BOT_START_RETRIES", "6"))
     backoff_base = int(os.getenv("BOT_BACKOFF_SECONDS", "5"))
