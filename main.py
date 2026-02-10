@@ -4,6 +4,7 @@ import sys
 import time
 from pathlib import Path
 from dotenv import load_dotenv
+logging.basicConfig(level=logging.DEBUG)
 
 # Try to import Request from python-telegram-bot; if unavailable, continue without custom Request
 Request = None
