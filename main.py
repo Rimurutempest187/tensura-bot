@@ -4,7 +4,14 @@ import sys
 import time
 from pathlib import Path
 from dotenv import load_dotenv
-logging.basicConfig(level=logging.DEBUG)
+
+# Enable debug logging early for troubleshooting (adjust level as needed)
+logging.basicConfig(
+    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
+    level=logging.DEBUG,
+)
+logging.getLogger("ChurchBot.bot").setLevel(logging.DEBUG)
+logging.getLogger("telegram").setLevel(logging.DEBUG)
 
 # Try to import Request from python-telegram-bot; if unavailable, continue without custom Request
 Request = None
@@ -26,18 +33,21 @@ from telegram.ext import (
     filters,
 )
 
+# Load environment variables
+load_dotenv()
+
 import config
 from utils.json_utils import init_data_files
 from utils.bot_utils import error_handler as bot_error_handler
-from handlers import user_handlers, quiz_handlers, admin_handlers, broadcast_handlers, group_handlers
+from handlers import (
+    user_handlers,
+    quiz_handlers,
+    admin_handlers,
+    broadcast_handlers,
+    group_handlers,
+)
 from scheduler import start_scheduler
 
-load_dotenv()
-
-logging.basicConfig(
-    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
-    level=logging.INFO,
-)
 logger = logging.getLogger("ChurchBot")
 
 # Ensure data folders & files
@@ -127,6 +137,7 @@ def register_handlers(app):
 
     # --- Optional: handle my_chat_member updates to auto-save groups (if implemented) ---
     if hasattr(group_handlers, "on_my_chat_member"):
+        # StatusUpdate.MY_CHAT_MEMBER is the correct filter for my_chat_member updates
         app.add_handler(MessageHandler(filters.StatusUpdate.MY_CHAT_MEMBER, group_handlers.on_my_chat_member))
         logger.debug("Registered on_my_chat_member handler.")
 
@@ -137,9 +148,12 @@ def register_handlers(app):
 def shutdown_scheduler(scheduler):
     try:
         if scheduler:
-            # If scheduler has a shutdown or stop method, call it
             if hasattr(scheduler, "shutdown"):
-                scheduler.shutdown(wait=False)
+                # APScheduler style
+                try:
+                    scheduler.shutdown(wait=False)
+                except TypeError:
+                    scheduler.shutdown()
             elif hasattr(scheduler, "stop"):
                 scheduler.stop()
             logger.info("Scheduler stopped.")
