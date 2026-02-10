@@ -119,7 +119,14 @@ def main():
         app = ApplicationBuilder().token(config.BOT_TOKEN).request(request).build()
     else:
         app = ApplicationBuilder().token(config.BOT_TOKEN).build()
-
+    # main.py
+from scheduler import start_scheduler
+    # register handlers
+    register_handlers(app)
+    # start scheduler
+    scheduler = start_scheduler()
+    # run bot
+    app.run_polling()
     register_handlers(app)
 
     max_retries = int(os.getenv("BOT_START_RETRIES", "6"))
