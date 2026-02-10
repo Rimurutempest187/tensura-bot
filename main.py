@@ -21,13 +21,15 @@ from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
     CallbackQueryHandler,
+    MessageHandler,
+    filters,
 )
 
 import config
 from utils.json_utils import init_data_files
 from utils.bot_utils import error_handler as bot_error_handler
-from handlers import user_handlers, quiz_handlers, admin_handlers, broadcast_handlers
-from scheduler import start_scheduler   # ✅ moved to top-level
+from handlers import user_handlers, quiz_handlers, admin_handlers, broadcast_handlers, group_handlers
+from scheduler import start_scheduler
 
 load_dotenv()
 
@@ -58,7 +60,11 @@ def build_request_from_env():
     if proxy:
         request_kwargs["proxy_url"] = proxy
         logger.info("Using proxy for Telegram requests: %s", proxy)
-    return Request(**request_kwargs)
+    try:
+        return Request(**request_kwargs)
+    except Exception as e:
+        logger.exception("Failed to build Request object: %s", e)
+        return None
 
 
 def safe_add_command(app, command_name: str, handler_module, handler_attr: str):
@@ -68,18 +74,18 @@ def safe_add_command(app, command_name: str, handler_module, handler_attr: str):
         app.add_handler(CommandHandler(command_name, handler_func))
         logger.debug("Registered /%s -> %s.%s", command_name, handler_module.__name__, handler_attr)
     else:
-        logger.warning("Handler missing: %s.%s not found. Skipping /%s registration.",
-                       handler_module.__name__, handler_attr, command_name)
+        logger.debug("Handler missing: %s.%s not found. Skipping /%s registration.",
+                     handler_module.__name__, handler_attr, command_name)
 
 
-def safe_add_callback(app, handler_module, handler_attr: str, callback_class):
-    """Add a callback handler (e.g., CallbackQueryHandler) if exists."""
+def safe_add_callback(app, handler_module, handler_attr: str):
+    """Add a CallbackQueryHandler only if the handler exists in the module."""
     if hasattr(handler_module, handler_attr):
         handler_func = getattr(handler_module, handler_attr)
-        app.add_handler(callback_class(handler_func))
-        logger.debug("Registered callback handler %s.%s", handler_module.__name__, handler_attr)
+        app.add_handler(CallbackQueryHandler(handler_func))
+        logger.debug("Registered CallbackQueryHandler -> %s.%s", handler_module.__name__, handler_attr)
     else:
-        logger.warning("Callback handler missing: %s.%s not found. Skipping.", handler_module.__name__, handler_attr)
+        logger.debug("Callback handler missing: %s.%s not found. Skipping.", handler_module.__name__, handler_attr)
 
 
 def register_handlers(app):
@@ -94,8 +100,10 @@ def register_handlers(app):
     safe_add_command(app, "myid", user_handlers, "myid")
     safe_add_command(app, "chatid", user_handlers, "chatid")
     safe_add_command(app, "tran", user_handlers, "tran")
+
+    # Quiz
     safe_add_command(app, "quiz", quiz_handlers, "quiz")
-    safe_add_callback(app, quiz_handlers, "quiz_button", CallbackQueryHandler)
+    safe_add_callback(app, quiz_handlers, "quiz_button")
 
     # --- Admin Commands ---
     safe_add_command(app, "addadmin", admin_handlers, "addadmin")
@@ -106,8 +114,36 @@ def register_handlers(app):
     safe_add_command(app, "addevent", admin_handlers, "addevent")
     safe_add_command(app, "clearevents", admin_handlers, "clearevents")
 
+    # --- Group management ---
+    safe_add_command(app, "addgroup", group_handlers, "addgroup")
+    safe_add_command(app, "listgroups", group_handlers, "listgroups")
+    safe_add_command(app, "delgroup", group_handlers, "delgroup")
+
+    # --- Optional: track users who message the bot (if implemented) ---
+    if hasattr(user_handlers, "track_user"):
+        app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, user_handlers.track_user))
+        logger.debug("Registered track_user message handler.")
+
+    # --- Optional: handle my_chat_member updates to auto-save groups (if implemented) ---
+    if hasattr(group_handlers, "on_my_chat_member"):
+        app.add_handler(MessageHandler(filters.StatusUpdate.MY_CHAT_MEMBER, group_handlers.on_my_chat_member))
+        logger.debug("Registered on_my_chat_member handler.")
+
     # --- Error Handler ---
     app.add_error_handler(bot_error_handler)
+
+
+def shutdown_scheduler(scheduler):
+    try:
+        if scheduler:
+            # If scheduler has a shutdown or stop method, call it
+            if hasattr(scheduler, "shutdown"):
+                scheduler.shutdown(wait=False)
+            elif hasattr(scheduler, "stop"):
+                scheduler.stop()
+            logger.info("Scheduler stopped.")
+    except Exception as e:
+        logger.exception("Error stopping scheduler: %s", e)
 
 
 def main():
@@ -123,8 +159,14 @@ def main():
     # register handlers
     register_handlers(app)
 
-    # start scheduler
-    scheduler = start_scheduler()
+    # start scheduler (if available)
+    scheduler = None
+    try:
+        scheduler = start_scheduler()
+        logger.info("Scheduler started.")
+    except Exception as e:
+        logger.exception("Failed to start scheduler: %s", e)
+        scheduler = None
 
     max_retries = int(os.getenv("BOT_START_RETRIES", "6"))
     backoff_base = int(os.getenv("BOT_BACKOFF_SECONDS", "5"))
@@ -133,6 +175,7 @@ def main():
     while True:
         try:
             logger.info("Starting bot (attempt %d)", attempt + 1)
+            # drop_pending_updates to avoid processing old updates on restart
             app.run_polling(drop_pending_updates=True, allowed_updates=Update.ALL_TYPES)
             logger.info("Bot stopped normally.")
             break
@@ -141,6 +184,7 @@ def main():
             logger.exception("NetworkError while running bot: %s", e)
             if attempt >= max_retries:
                 logger.error("Exceeded max retries (%d). Exiting.", max_retries)
+                shutdown_scheduler(scheduler)
                 sys.exit(1)
             sleep_for = backoff_base * attempt
             logger.info("Retrying in %s seconds...", sleep_for)
@@ -151,9 +195,15 @@ def main():
                 app.stop()
             except Exception:
                 pass
+            shutdown_scheduler(scheduler)
             sys.exit(0)
         except Exception as e:
             logger.exception("Unexpected error: %s", e)
+            try:
+                app.stop()
+            except Exception:
+                pass
+            shutdown_scheduler(scheduler)
             sys.exit(1)
 
 
